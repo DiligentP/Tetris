@@ -1,4 +1,4 @@
-#include <stdio.h>
+/*#include <stdio.h>
 
 void T_MAP();
 
@@ -31,4 +31,4 @@ void T_MAP() {
 	}
 	//////////////////////////////////
 	printf("\n    ");
-}
+}*/
