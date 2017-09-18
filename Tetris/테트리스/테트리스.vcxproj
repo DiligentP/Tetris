@@ -116,10 +116,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
-    <ClCompile Include="tatris.c" />
+    <ClCompile Include="system.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Heder.h" />
+    <ClInclude Include="Header.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

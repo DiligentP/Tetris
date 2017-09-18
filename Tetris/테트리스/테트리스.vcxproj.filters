@@ -18,12 +18,12 @@
     <ClCompile Include="main.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="tatris.c">
+    <ClCompile Include="system.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Heder.h">
+    <ClInclude Include="Header.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
