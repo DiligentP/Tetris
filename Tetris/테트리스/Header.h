@@ -1,4 +1,17 @@
-#include <stdio.h>
+#include<stdio.h>
+#include<windows.h>
+#include<conio.h>
+#include<time.h>
+#include<stdlib.h>
+
+#define LEFT 75 //좌로 이동    //키보드값들 
+#define RIGHT 77 //우로 이동 
+#define UP 72 //회전 
+#define DOWN 80 //soft drop
+#define SPACE 32 //hard drop
+#define p 112 //일시정지 
+#define P 80 //일시정지
+#define ESC 27 //게임종료
 
 void T_MAP();  //테트리스 맵 생성
 

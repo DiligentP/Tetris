@@ -1,4 +1,4 @@
-/*#include "Header.h"
+#include "Header.h"
 
 
 int main() {
@@ -6,8 +6,8 @@ int main() {
 	T_MAP();
 	
 	return 0;
-}*/
-#include<stdio.h>
+}
+/*#include<stdio.h>
 #include<windows.h>
 #include<conio.h>
 #include<time.h>
@@ -680,4 +680,4 @@ void pause(void) { //게임 일시정지 함수
 			}
 		}
 	}
-} //끝! 
+} //끝! */
