@@ -1,18 +1,81 @@
 #include "Header.h"
 
+void textColor(int color_number);  // 인터페이스의 글자 색깔 바꾸는 함수
+void gotoxy(int x, int y);	// 인터페이스의 위치를 정하는 함수
 
 int main() {
 
-	printf("\n\n");
-	printf();
-	printf("\t■■■■■   ■■■   ■■■■■ ■■■■  ■■■ ■■■■\n");
-	printf("\t    ■     ■      ■     ■     ■     ■   ■   ■      \n");
-	printf("\t    ■     ■■■■■     ■     ■■■■    ■   ■■■■\n");
-	printf("\t    ■     ■      ■     ■     ■     ■   ■         ■\n");
-	printf("\t    ■     ■      ■     ■     ■     ■ ■■■ ■■■■\n");
+	system("title ●T E T R I S● by JH");
+
+	int i = 0;
+
+	int TETRIS_LOGO[] =
+	{
+		9, 8, 0, 1, 1, 1, 0, 2, 2, 2, 0, 3, 3, 3, 0, 4, 4, 4, 0, 5, 0, 6, 6, 6, 0, 10,
+		8, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 3, 0, 0, 4, 0, 4, 0, 5, 0, 6, 0, 0, 0,10,
+		8, 0, 0, 1, 0, 0, 2, 2, 2, 0, 0, 3, 0, 0, 4, 4, 4, 0, 5, 0, 6, 6, 6, 0,10,
+		8, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 3, 0, 0, 4, 4, 0, 0, 5, 0, 0, 0, 6, 0,10,
+		8, 0, 0, 1, 0, 0, 2, 2, 2, 0, 0, 3, 0, 0, 4, 0, 4, 0, 5, 0, 6, 6, 6, 0, 7
+	};
+
+	for (int i = 0; ; i++) {
+		if (TETRIS_LOGO[i] == 10) {
+			printf("\n");
+		}
+		if (TETRIS_LOGO[i] == 9) {
+			printf("\n\n\n\n\n");
+		}
+		if (TETRIS_LOGO[i] == 8) {
+			printf("\t    ");
+		}
+		if (TETRIS_LOGO[i] == 1){
+			textColor(12); printf("■");
+		}
+		else if (TETRIS_LOGO[i] == 2){
+			textColor(10); printf("■");
+		}
+		else if (TETRIS_LOGO[i] == 3) {
+			textColor(14); printf("■");
+		}
+		else if (TETRIS_LOGO[i] == 4) {
+			textColor(9); printf("■");
+		}
+		else if (TETRIS_LOGO[i] == 5) {
+			textColor(11); printf("■");
+		}
+		else if (TETRIS_LOGO[i] == 6) {
+			textColor(13); printf("■");
+		}
+		else if (TETRIS_LOGO[i] == 7) {
+			textColor(8); printf(" by JH");
+			break;
+		}
+		else {
+			printf("  ");
+		}
+	}
+	printf("\n"); textColor(7); printf("\n\n\t       ");
+
+	/*
+	printf("\t ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ \n");
+	printf("\tㅣ■■■■■ ■■■■ ■■■■■ ■■■■  ■■■ ■■■■ㅣ\n");
+	printf("\tㅣ    ■     ■           ■     ■     ■   ■   ■      ㅣ\n");
+	printf("\tㅣ    ■     ■■■■     ■     ■■■■    ■   ■■■■ㅣ\n");
+	printf("\tㅣ    ■     ■           ■     ■     ■   ■         ■ㅣ\n");
+	printf("\tㅣ    ■     ■■■■     ■     ■     ■ ■■■ ■■■■ㅣ\n");
+	printf("\t ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ \n\n\t");
+	*/
 	
 	
 	return 0;
+}
+
+void textColor(int color_number) {
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color_number);
+}
+void gotoxy(int x, int y) {
+	COORD pos = { x,y };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 /*#include<stdio.h>
 #include<windows.h>
