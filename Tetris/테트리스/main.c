@@ -1,7 +1,5 @@
 #include "Header.h"
 
-void textColor(int color_number);  // 인터페이스의 글자 색깔 바꾸는 함수
-void gotoxy(int x, int y);	// 인터페이스의 위치를 정하는 함수
 
 int main() {
 
@@ -70,13 +68,6 @@ int main() {
 	return 0;
 }
 
-void textColor(int color_number) {
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color_number);
-}
-void gotoxy(int x, int y) {
-	COORD pos = { x,y };
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
-}
 /*#include<stdio.h>
 #include<windows.h>
 #include<conio.h>

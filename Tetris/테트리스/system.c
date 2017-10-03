@@ -23,3 +23,12 @@ void T_MAP() {
 	//////////////////////////////////
 	printf("\n    ");
 }
+
+void textColor(int color_number) {
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color_number);
+}
+
+void gotoxy(int x, int y) {
+	COORD pos = { x,y };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+}

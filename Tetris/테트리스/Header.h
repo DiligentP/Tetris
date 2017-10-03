@@ -4,6 +4,9 @@
 #include<time.h>
 #include<stdlib.h>
 
+void textColor(int color_number);  // 인터페이스의 글자 색깔 바꾸는 함수
+void gotoxy(int x, int y);	// 인터페이스의 위치를 정하는 함수
+
 #define LEFT 75 //좌로 이동    //키보드값들 
 #define RIGHT 77 //우로 이동 
 #define UP 72 //회전 
