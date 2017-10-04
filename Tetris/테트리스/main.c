@@ -3,7 +3,7 @@
 
 int main() {
 
-	system("title ¡ÜT E T R I S¡Ü by JH");
+	system("title ¡ÜT E T R I S¡Ü");
 
 	int i = 0;
 
