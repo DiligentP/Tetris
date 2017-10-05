@@ -16,7 +16,7 @@ void gotoxy(int x, int y);	// 인터페이스의 위치를 정하는 함수
 #define P 80 //일시정지
 #define ESC 27 //게임종료
 
-void T_MAP();  //테트리스 맵 생성
+void T_START();  //테트리스 맵 생성
 
 typedef struct tetris {
 

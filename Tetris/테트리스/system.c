@@ -3,7 +3,7 @@
 int MAP_X = 15;
 int MAP_Y = 20;
 
-void T_MAP() {
+void T_START() {
 	int i, j;
 	printf("\n\n    ");
 	///////////// Y //////////////////
