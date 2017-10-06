@@ -3,6 +3,8 @@
 
 int main() {
 
+	int a;
+
 	system("title ●T E T R I S●");
 
 	int i = 0;
@@ -15,6 +17,7 @@ int main() {
 	printf("\tㅣ    ■     ■■■■     ■     ■■■■    ■   ■■■■ㅣ\n");
 	printf("\tㅣ    ■     ■           ■     ■     ■   ■         ■ㅣ\n");
 	printf("\tㅣ    ■     ■■■■     ■     ■     ■ ■■■ ■■■■ㅣ\n");
+
 	printf("\t ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ \n\n\t");
 	*/
 
@@ -67,10 +70,14 @@ int main() {
 
 	///////////////////// 테트리스 메뉴 ///////////////////////
 
-	printf("\t\t\t    [  ]  GAME START\n\n");
-	printf("\t\t\t    [  ]  R A N K\n\n");
-	printf("\t\t\t    [  ]  S Y S T E M\n\n");
-	printf("\t\t\t    [  ]  E X I T\n");
+	if (a=_getch()) {
+		printf("\t\t\t    [  ]  GAME START\n\n");
+		printf("\t\t\t    [  ]  R A N K\n\n");
+		printf("\t\t\t    [  ]  S Y S T E M\n\n");
+		printf("\t\t\t    [  ]  E X I T\n");
+	}
+	
+	
 	getc(stdin);
 
 	
