@@ -70,12 +70,11 @@ int main() {
 
 	///////////////////// 테트리스 메뉴 ///////////////////////
 
-	if (a=_getch()) {
-		printf("\t\t\t    [  ]  GAME START\n\n");
-		printf("\t\t\t    [  ]  R A N K\n\n");
-		printf("\t\t\t    [  ]  S Y S T E M\n\n");
-		printf("\t\t\t    [  ]  E X I T\n");
-	}
+	textColor(240);
+	printf("\t\t\t    >>   GAME START   <<\n\n");
+	printf("\t\t\t    >>     R A N K    <<\n\n");
+	printf("\t\t\t    >>   S Y S T E M  <<\n\n");
+	printf("\t\t\t    >>     E X I T    <<\n");
 	
 	
 	getc(stdin);

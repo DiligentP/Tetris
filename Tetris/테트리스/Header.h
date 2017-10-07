@@ -3,6 +3,7 @@
 #include<conio.h>
 #include<time.h>
 #include<stdlib.h>
+#include<conio.h>
 
 void textColor(int color_number);  // 인터페이스의 글자 색깔 바꾸는 함수
 void gotoxy(int x, int y);	// 인터페이스의 위치를 정하는 함수
