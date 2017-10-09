@@ -1,4 +1,3 @@
-﻿  main.c
-e:\asio\c언어\tetris\tetris\tetris\테트리스\main.c(6): warning C4101: 'a' :참조되지 않은 지역 변수입니다.
+﻿  system.c
   테트리스.vcxproj -> E:\Asio\C언어\Tetris\Tetris\Tetris\Debug\테트리스.exe
   테트리스.vcxproj -> E:\Asio\C언어\Tetris\Tetris\Tetris\Debug\테트리스.pdb (Partial PDB)
