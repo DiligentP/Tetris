@@ -2,18 +2,35 @@
 
 
 int main() {
-	
-	T_START_Display();
 
+	int Count;         // T_START_Display(); 함수에서 반환한 반환값
+
+	cursor(0);         // 커서 숨기기 : 0 숨기기 1 보이기
+	
+	Count = T_START_Display();       // 1 : GAME START  2 : RANK  3 : SYSTEM  4 : EXIT 
+
+	switch (Count)
+	{
+	case 1:
+		showBoard();
+		//printf("\t\t\t게임은 현재 준비중입니다.\n\n");
+		break;
+	case 2:
+		printf("\t\t\t랭킹은 현재 준비중입니다.\n\n");
+		break;
+	case 3:
+		printf("\t\t\t시스템은 현재 준비중입니다.\n\n");
+		break;
+	case 4:
+		break;
+	}
+	
 	return 0;
 }
 
-/*#include<stdio.h>
-#include<windows.h>
-#include<conio.h>
-#include<time.h>
-#include<stdlib.h>
 
+
+/*
 #define LEFT 75 //좌로 이동    //키보드값들 
 #define RIGHT 77 //우로 이동 
 #define UP 72 //회전 
@@ -27,7 +44,7 @@ int main() {
 #define true 1
 
 #define ACTIVE_BLOCK -2 // 게임판배열에 저장될 블록의 상태들 
-#define CEILLING -1     // 블록이 이동할 수 있는 공간은 0 또는 음의 정수료 표현 
+#define CEILLING -1     // 블록이 이동할 수 있는 공간은 0 또는 음의 정수로 표현 
 #define EMPTY 0         // 블록이 이동할 수 없는 공간은 양수로 표현 
 #define WALL 1
 #define INACTIVE_BLOCK 2 // 이동이 완료된 블록값

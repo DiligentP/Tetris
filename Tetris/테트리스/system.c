@@ -1,7 +1,7 @@
 #include "Header.h"
 
 // 테트리스 맨 처음 시작 화면 
-void T_START_Display() {
+int T_START_Display() {
 	int KeyBoard = 0; int count = 0; //  KeyBoard : 키보드 값을 받는 변수 , count : UP(72) = +1, DOWN(80) = -1
 
 	system("title ●T E T R I S●");
@@ -16,7 +16,6 @@ void T_START_Display() {
 	printf("\tㅣ    ■     ■■■■     ■     ■■■■    ■   ■■■■ㅣ\n");
 	printf("\tㅣ    ■     ■           ■     ■     ■   ■         ■ㅣ\n");
 	printf("\tㅣ    ■     ■■■■     ■     ■     ■ ■■■ ■■■■ㅣ\n");
-
 	printf("\t ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ \n\n\t");
 	*/
 
@@ -31,6 +30,7 @@ void T_START_Display() {
 	while (1)
 	{
 		//printf("%d",count);
+		//printf("%d",KeyBoard);
 		system("cls");
 
 		for (int i = 0; ; i++) {
@@ -83,6 +83,9 @@ void T_START_Display() {
 		else if (KeyBoard == ESC) {
 			exit(0);
 		}
+		else if (KeyBoard == Enter) {
+			return count;									//  카운트를 반환하고 함수를 종료.
+		}
 
 		//textColor(240);  흰색 배경
 		//textColor(7);		기본
@@ -123,6 +126,63 @@ void T_START_Display() {
 	}
 }
 
+void showBoard()
+{
+	int x, y;
+	int board[BOARD_HEIGHT + 1][BOARD_WIDTH + 2] = { 0, };
+
+	system("cls");   // 화면 클리어
+
+	//중앙보드라인
+	for (x = 1; x <= BOARD_WIDTH + 1; x++)
+	{
+		board[BOARD_HEIGHT][x] = 1; //board 배열중앙1인식
+		gotoxy((BOARD_X)+x * 2, BOARD_Y + BOARD_HEIGHT);  //콘솔좌표
+		printf("━");
+	}
+	//왼쪽보드라인
+	for (y = 0; y<BOARD_HEIGHT + 1; y++)
+	{
+		board[y][0] = 1; //board 배열왼쪽1인식
+		gotoxy(BOARD_X, BOARD_Y + y);
+		if (y == BOARD_HEIGHT)
+			printf("┗");
+		else
+				printf("┃");
+	}
+	//오른쪽보드라인
+	for (y = 0; y<BOARD_HEIGHT + 1; y++)
+	{
+		board[y][BOARD_WIDTH + 1] = 1; //board 배열오른쪽1인식
+		gotoxy(BOARD_X + (BOARD_WIDTH + 2) * 2, BOARD_Y + y);
+		if (y == BOARD_HEIGHT)
+			printf("┛");
+		else
+				printf("┃");
+	}
+
+	//모서리값값변경
+	board[20][0] = 1;
+	board[20][11] = 1;
+
+
+
+	//보드판숫자보기
+	/*
+	gotoxy(6,2);
+	for(y=0; y<=BOARD_HEIGHT; y++){
+	      for(x=0; x<=BOARD_WIDTH+1; x++){
+	              gotoxy(4+(x*2),2+y);
+	              printf("%d ",board[y][x]);
+	      }
+	      printf("\n");
+	}
+	*/
+
+
+	printf("\n");
+}
+
 // 텍스트 색깔 변경
 void textColor(int color_number) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color_number);
@@ -132,4 +192,18 @@ void textColor(int color_number) {
 void gotoxy(int x, int y) {
 	COORD pos = { x,y };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+}
+
+// 커서 보이기 & 숨기기
+void cursor(int n) 
+{
+	HANDLE hConsole;
+	CONSOLE_CURSOR_INFO ConsoleCursor;
+
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	ConsoleCursor.bVisible = n;
+	ConsoleCursor.dwSize = 1;
+
+	SetConsoleCursorInfo(hConsole, &ConsoleCursor);
 }
