@@ -4,7 +4,7 @@
 int T_START_Display() {
 	int KeyBoard = 0; int count = 0; //  KeyBoard : 키보드 값을 받는 변수 , count : UP(72) = +1, DOWN(80) = -1
 
-	system("title ●T E T R I S●");
+	system("title T E T R I S");
 
 	int i = 0;
 
