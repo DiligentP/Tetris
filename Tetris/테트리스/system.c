@@ -17,6 +17,11 @@ int T_START_Display() {
 	printf("\t太    ﹥     ﹥           ﹥     ﹥     ﹥   ﹥         ﹥太\n");
 	printf("\t太    ﹥     ﹥﹥﹥﹥     ﹥     ﹥     ﹥ ﹥﹥﹥ ﹥﹥﹥﹥太\n");
 	printf("\t 天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天 \n\n\t");
+
+								G A M E S T A R T
+								R A N K I N G
+								S Y S T E M
+								E X I T
 	*/
 
 	int TETRIS_LOGO[] =
