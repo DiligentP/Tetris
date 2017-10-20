@@ -183,6 +183,37 @@ void showBoard()
 	      printf("\n");
 	}
 	*/
+	gotoxy(36,2); 	printf("Best: 1000");
+	gotoxy(36,3); 	printf("Score: 100");
+
+	gotoxy(36,6);	printf(" NEXT ");
+	gotoxy(36,7);	printf("┌━━━━━━┐");
+	gotoxy(36,8);	printf("┃            ┃");
+	gotoxy(36,9);	printf("┃            ┃");
+	gotoxy(36,10);	printf("┃            ┃");
+	gotoxy(36,11);	printf("┗━━━━━━┘");
+
+	gotoxy(36,14);	printf("KEY");
+	gotoxy(36,15);	printf("    ESC (P) : 나가기(메뉴)");
+	gotoxy(36,17);	printf("    ↑상 ↓하 ←좌 →우");
+	gotoxy(36,19);	printf("    SPACE : 맨밑으로내리기");
+
+	getc(stdin);
+
+	system("cls");
+
+	gotoxy(23, 5); printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤"); //게임오버 메세지 
+	gotoxy(23, 6); printf("▤                              ▤");
+	gotoxy(23, 7); printf("▤  +-----------------------+   ▤");
+	gotoxy(23, 8); printf("▤  |   G A M E  O V E R    |   ▤");
+	gotoxy(23, 9); printf("▤  +-----------------------+   ▤");
+	gotoxy(23,10); printf("▤                              ▤");
+	gotoxy(23,11); printf("▤    YOUR SCORE: ...           ▤");
+	gotoxy(23,12); printf("▤                              ▤");
+	gotoxy(23,13); printf("▤                              ▤");
+	gotoxy(23,14); printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤");
+	
+	getc(stdin);
 
 
 	printf("\n");
