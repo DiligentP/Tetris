@@ -131,7 +131,49 @@ int T_START_Display() {
 	}
 }
 
-void showBoard()
+void test_Board() {
+	int x, y;
+	int board[BOARD_HEIGHT + 1][BOARD_WIDTH + 2] = { AIR, };
+
+	for (x = 1; x <= BOARD_WIDTH + 1; x++)
+	{
+		board[BOARD_HEIGHT][x] = 1; //board 배열중앙1인식
+		gotoxy((BOARD_X)+x * 2, BOARD_Y + BOARD_HEIGHT);  //콘솔좌표
+		printf("━");
+	}
+	
+	for (y = 0; y<BOARD_HEIGHT + 1; y++)
+	{
+		board[y][0] = 1; //board 배열왼쪽1인식
+		gotoxy(BOARD_X, BOARD_Y + y);
+		if (y == BOARD_HEIGHT)
+			printf("┗");
+		else
+			printf("┃");
+	}
+	for (y = 0; y<BOARD_HEIGHT + 1; y++)
+	{
+		board[y][BOARD_WIDTH + 1] = 1; //board 배열오른쪽1인식
+		gotoxy(BOARD_X + (BOARD_WIDTH + 2) * 2, BOARD_Y + y);
+		if (y == BOARD_HEIGHT)
+			printf("┛");
+		else
+			printf("┃");
+	}
+
+	system("cls");
+	gotoxy(6, 2);
+	for (y = 0; y <= BOARD_HEIGHT; y++) {
+		for (x = 0; x <= BOARD_WIDTH + 1; x++) {
+			gotoxy(4 + (x * 2), 2 + y);
+			printf("%d ", board[y][x]);
+		}
+		printf("\n");
+	}
+	getc(stdin);
+}
+
+void reset_Board()
 {
 	int x, y;
 	int board[BOARD_HEIGHT + 1][BOARD_WIDTH + 2] = { 0, };
@@ -167,13 +209,16 @@ void showBoard()
 	}
 
 	//모서리값값변경
-	board[20][0] = 1;
-	board[20][11] = 1;
+	/*
+	board[20][0] = 2;
+	board[20][11] = 2;
+	*/
 
 
 
 	//보드판숫자보기
-	/*
+	
+	system("cls");
 	gotoxy(6,2);
 	for(y=0; y<=BOARD_HEIGHT; y++){
 	      for(x=0; x<=BOARD_WIDTH+1; x++){
@@ -182,7 +227,8 @@ void showBoard()
 	      }
 	      printf("\n");
 	}
-	*/
+	
+
 	gotoxy(36,2); 	printf("Best: 1000");
 	gotoxy(36,3); 	printf("Score: 100");
 
@@ -200,6 +246,11 @@ void showBoard()
 
 	getc(stdin);
 
+
+	printf("\n");
+}
+
+void Game_over() {
 	system("cls");
 
 	gotoxy(23, 5); printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤"); //게임오버 메세지 
@@ -207,16 +258,13 @@ void showBoard()
 	gotoxy(23, 7); printf("▤  +-----------------------+   ▤");
 	gotoxy(23, 8); printf("▤  |   G A M E  O V E R    |   ▤");
 	gotoxy(23, 9); printf("▤  +-----------------------+   ▤");
-	gotoxy(23,10); printf("▤                              ▤");
-	gotoxy(23,11); printf("▤    YOUR SCORE: ...           ▤");
-	gotoxy(23,12); printf("▤                              ▤");
-	gotoxy(23,13); printf("▤                              ▤");
-	gotoxy(23,14); printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤");
-	
+	gotoxy(23, 10); printf("▤                              ▤");
+	gotoxy(23, 11); printf("▤    YOUR SCORE: ...           ▤");
+	gotoxy(23, 12); printf("▤                              ▤");
+	gotoxy(23, 13); printf("▤                              ▤");
+	gotoxy(23, 14); printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤");
+
 	getc(stdin);
-
-
-	printf("\n");
 }
 
 // 텍스트 색깔 변경

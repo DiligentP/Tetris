@@ -17,9 +17,13 @@
 #define Enter 13 //엔터
 
 #define BOARD_HEIGHT 20 // ┃개수   //보드판
-#define BOARD_WIDTH 12  // ━개수
+#define BOARD_WIDTH 13  // ━개수
 #define BOARD_X 4 //보드열x좌표
 #define BOARD_Y 2 //보드행y좌표
+
+#define AIR 0
+#define WALL 1
+
 
 
 /////////////////// 구조체 ////////////////////
@@ -46,5 +50,9 @@ void cursor(int n); //커서 숨기는 함수
 
 int T_START_Display();  //테트리스 처음 시작 화면
 
-void showBoard();
+void test_Board();
+
+void reset_Board();
+
+void Game_over();
 /////////////////////////////////////////////////////
