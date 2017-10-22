@@ -133,8 +133,9 @@ int T_START_Display() {
 
 void test_Board() {
 	int x, y;
-	int board[BOARD_HEIGHT + 1][BOARD_WIDTH + 2] = { AIR, };
+	int board[BOARD_HEIGHT + 1][BOARD_WIDTH + 2] = { EMPTY, };           // 
 
+	system("cls");
 	for (x = 1; x <= BOARD_WIDTH + 1; x++)
 	{
 		board[BOARD_HEIGHT][x] = 1; //board 배열중앙1인식
@@ -161,6 +162,11 @@ void test_Board() {
 			printf("┃");
 	}
 
+	gotoxy(20,2);// 보드에 정중앙
+	printf("■");
+
+
+	/*
 	system("cls");
 	gotoxy(6, 2);
 	for (y = 0; y <= BOARD_HEIGHT; y++) {
@@ -170,6 +176,7 @@ void test_Board() {
 		}
 		printf("\n");
 	}
+	*/
 	getc(stdin);
 }
 

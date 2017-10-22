@@ -21,7 +21,7 @@
 #define BOARD_X 4 //보드열x좌표
 #define BOARD_Y 2 //보드행y좌표
 
-#define AIR 0
+#define EMPTY 0
 #define WALL 1
 
 
