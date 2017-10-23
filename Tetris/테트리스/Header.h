@@ -52,6 +52,8 @@ int T_START_Display();  //테트리스 처음 시작 화면
 
 void test_Board();
 
+void new_block();
+
 void reset_Board();
 
 void Game_over();

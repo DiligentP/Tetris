@@ -15,6 +15,7 @@ int main() {
 		{
 		case 1:
 			test_Board();
+			new_block();
 			//printf("\t\t\t게임은 현재 준비중입니다.\n\n");
 			break;
 		case 2:

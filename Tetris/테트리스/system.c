@@ -160,11 +160,7 @@ void test_Board() {
 			printf("¦°");
 		else
 			printf("¦­");
-	}
-
-	gotoxy(20,2);// º¸µå¿¡ Á¤Áß¾Ó
-	printf("¡á");
-
+	} 
 
 	/*
 	system("cls");
@@ -177,6 +173,15 @@ void test_Board() {
 		printf("\n");
 	}
 	*/
+}
+
+void new_block() {
+	int x = 20, y = 2; // º¸µå¿¡ Á¤Áß¾Ó ÁÂÇ¥
+
+	gotoxy(x, y);// º¸µå¿¡ Á¤Áß¾Ó
+
+	printf("¡á");
+
 	getc(stdin);
 }
 
