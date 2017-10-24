@@ -17,14 +17,15 @@
 #define Enter 13 //엔터
 
 #define BOARD_HEIGHT 20 // ┃개수   //보드판
-#define BOARD_WIDTH 13  // ━개수
+#define BOARD_WIDTH 13// ━개수
 #define BOARD_X 4 //보드열x좌표
 #define BOARD_Y 2 //보드행y좌표
 
-#define EMPTY 0
-#define WALL 1
-
-
+#define ACTIVE_BLOCK -2 // 게임판배열에 저장될 블록의 상태들 
+#define CEILLING -1     // 블록이 이동할 수 있는 공간은 0 또는 음의 정수로 표현 
+#define EMPTY 0         // 블록이 이동할 수 없는 공간은 양수로 표현 
+#define WALL 1          // 블록이 이동할 수 없는 벽
+#define INACTIVE_BLOCK 2 // 이동이 완료된 블록값
 
 /////////////////// 구조체 ////////////////////
 typedef struct tetris {
@@ -46,11 +47,11 @@ void textColor(int color_number); // 글자 색깔 바꾸는 함수
 
 void gotoxy(int x, int y); // 커서 위치를 정하는 함수
 
-void cursor(int n); //커서 숨기는 함수
+void Cursor(int n); //커서 숨기는 함수
 
 int T_START_Display();  //테트리스 처음 시작 화면
 
-void test_Board();
+void New_Board(int board[][BOARD_WIDTH + 2]);
 
 void new_block();
 
