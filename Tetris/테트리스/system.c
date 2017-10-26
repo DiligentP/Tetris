@@ -186,18 +186,16 @@ void New_Board(int board[][BOARD_WIDTH + 2]) {
 	///////////////////////////////////////////////////////////
 
 	x = 22, y = -1;  //보드의 중앙값
-	board[18][16] = ACTIVE_BLOCK;
+	board[y][x] = ACTIVE_BLOCK;
 
-	for (y = -1; y <= BOARD_HEIGHT+1; y++) {
-		for (x = 0; x <= BOARD_WIDTH + 2; x++) {
-			if (board[y][x] == -2) {
-				gotoxy(4 + (x * 2), 2 + y); printf("■");
-			}
+	for (int i = 0; i<4; i++) {
+		for (int j = 0; j<4; j++) {
+			if (blocks[1][0][i][j] == 1) board[y][x] = ACTIVE_BLOCK;
 		}
 	}
 
 	// 배열 보기
-	/*
+	
 	system("cls");
 	gotoxy(6, 2);
 	for (y = 0; y <= BOARD_HEIGHT; y++) {
@@ -207,34 +205,32 @@ void New_Board(int board[][BOARD_WIDTH + 2]) {
 		}
 		printf("\n");
 	}
-	*/
+	
 }
 
-void new_block() {
+void new_block(int board[][BOARD_WIDTH + 2]) {
 	int i, j;
-	int x = 20, y = 2; // 보드에 정중앙 좌표
+	int x = 22, y = -1; // 보드에 정중앙 좌표
 
-	int b_type; //블록 종류를 저장 
+	int b_type = 1; //블록 종류를 저장 
 	int b_rotation; //블록 회전값 저장 
 	//int b_type_next; //다음 블록값 저장 
 
-	x = 18; //블록 생성 위치x좌표(게임판의 가운데) 
-	y = 2;  //블록 생성위치 y좌표(제일 위) 
+	x = 22; //블록 생성 위치x좌표(게임판의 가운데) 
+	y = -1;  //블록 생성위치 y좌표(제일 위)
 	//b_type = b_type_next; //다음블럭값을 가져옴 
 	//b_type_next = rand() % 7; //다음 블럭을 만듦 
 	b_rotation = 0;  //회전은 0번으로 가져옴 
 
 	//new_block_on = 0; //new_block flag를 끔  
 
-	/*
-	for (i = 0; i<4; i++) { //게임판 bx, by위치에 블럭생성  
+	
+	for (i = 0; i<4; i++) {  
 		for (j = 0; j<4; j++) {
-			if (blocks[b_type][b_rotation][i][j] == 1) main_org[by + i][bx + j] = ACTIVE_BLOCK;
+			if (blocks[b_type][b_rotation][i][j]==1) board[y+i][x+j] = ACTIVE_BLOCK;
 		}
 	}
-	*/
-
-
+	
 	gotoxy(x, y);// 보드에 정중앙
 
 
