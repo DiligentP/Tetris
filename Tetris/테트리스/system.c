@@ -224,7 +224,7 @@ void new_block(int board[][BOARD_WIDTH + 2]) {
 
 	//new_block_on = 0; //new_block flag를 끔  
 
-	
+	// 테트리스 맨위 좌표
 	for (i = 0; i<4; i++) {  
 		for (j = 0; j<4; j++) {
 			if (blocks[b_type][b_rotation][i][j]==1) board[y+i][x+j] = ACTIVE_BLOCK;
