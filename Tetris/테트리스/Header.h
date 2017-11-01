@@ -43,19 +43,19 @@ typedef struct tetris {
 /////////////////////////////////////////////////
 
 ////////////////  SYSTEM.C   /////////////////////////
+int T_START_Display();  //테트리스 처음 시작 화면
+
+void new_Board(int board[][BOARD_WIDTH + 2]);
+
+void new_Block(int board[][BOARD_WIDTH + 2]);
+
+void Game_over();
+/////////////////////////////////////////////////////
+
+////////////////  UTILE.C   /////////////////////////
 void textColor(int color_number); // 글자 색깔 바꾸는 함수
 
 void gotoxy(int x, int y); // 커서 위치를 정하는 함수
 
 void Cursor(int n); //커서 숨기는 함수
-
-int T_START_Display();  //테트리스 처음 시작 화면
-
-void New_Board(int board[][BOARD_WIDTH + 2]);
-
-void new_block();
-
-void reset_Board();
-
-void Game_over();
 /////////////////////////////////////////////////////

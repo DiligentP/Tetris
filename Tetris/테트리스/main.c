@@ -17,9 +17,9 @@ int main() {
 		switch (Count)
 		{
 		case 1:
-			New_Board(board);   // 보드 리셋
-			new_block(board);        // 블록 리셋
-			//printf("\t\t\t게임은 현재 준비중입니다.\n\n");
+			new_Board(board);   // 보드판 동기화
+			//new_Block(board);        // 블록 동기화
+			
 			break;
 		case 2:
 			printf("\t\t\t랭킹은 현재 준비중입니다.\n\n");
@@ -33,8 +33,6 @@ int main() {
 			exit(0);
 		}
 	}
-
-
 
 	return 0;
 }

@@ -17,7 +17,6 @@ int blocks[7][4][4][4] = {
 	{ { 0,0,0,0,0,1,0,0,1,1,1,0,0,0,0,0 },{ 0,0,0,0,0,1,0,0,0,1,1,0,0,1,0,0 },
 	{ 0,0,0,0,0,0,0,0,1,1,1,0,0,1,0,0 },{ 0,0,0,0,0,1,0,0,1,1,0,0,0,1,0,0 } }
 }; //블록모양 저장 4*4공간에 블록을 표현 blcoks[b_type][b_rotation][i][j]로 사용 
-   //////////////////////////////////////////////////////////////////////////////////
 
 // 테트리스 맨 처음 시작 화면 
 int T_START_Display() {
@@ -150,101 +149,14 @@ int T_START_Display() {
 	}
 }
 
-void New_Board(int board[][BOARD_WIDTH + 2]) {
-	int x,y;  // 보드의 중앙값
+// 보드 동기화
+void new_Board(int board[][BOARD_WIDTH + 2]) {
+	int x,y;
 	
 	memset(board, EMPTY, sizeof(board)*(BOARD_HEIGHT + 1)*(BOARD_WIDTH + 2)); //보드 메모리 초기화   memset(변수, 초기화값, 변수크기)
-	
 
-	////////////////////// 보드판 틀 생성 ////////////////////
 	system("cls");
-	for (x = 1; x <= BOARD_WIDTH + 1; x++)
-	{
-		board[BOARD_HEIGHT][x] = 1; //board 배열중앙1인식
-		gotoxy((BOARD_X)+x * 2, BOARD_Y + BOARD_HEIGHT);  //콘솔좌표
-		printf("━");
-	}
-	
-	for (y = 0; y<BOARD_HEIGHT + 1; y++)
-	{
-		board[y][0] = 1; //board 배열왼쪽1인식
-		gotoxy(BOARD_X, BOARD_Y + y);
-		if (y == BOARD_HEIGHT)
-			printf("┗");
-		else
-			printf("┃");
-	}
-	for (y = 0; y<BOARD_HEIGHT + 1; y++)
-	{
-		board[y][BOARD_WIDTH + 1] = 1; //board 배열오른쪽1인식
-		gotoxy(BOARD_X + (BOARD_WIDTH + 2) * 2, BOARD_Y + y);
-		if (y == BOARD_HEIGHT)
-			printf("┛");
-		else
-			printf("┃");
-	} 
-	///////////////////////////////////////////////////////////
-
-	x = 22, y = -1;  //보드의 중앙값
-	board[y][x] = ACTIVE_BLOCK;
-
-	for (int i = 0; i<4; i++) {
-		for (int j = 0; j<4; j++) {
-			if (blocks[1][0][i][j] == 1) board[y][x] = ACTIVE_BLOCK;
-		}
-	}
-
-	// 배열 보기
-	
-	system("cls");
-	gotoxy(6, 2);
-	for (y = 0; y <= BOARD_HEIGHT; y++) {
-		for (x = 0; x <= BOARD_WIDTH + 1; x++) {
-			gotoxy(4 + (x * 2), 2 + y);
-			printf("%d ", board[y][x]);
-		}
-		printf("\n");
-	}
-	
-}
-
-void new_block(int board[][BOARD_WIDTH + 2]) {
-	int i, j;
-	int x = 22, y = -1; // 보드에 정중앙 좌표
-
-	int b_type = 1; //블록 종류를 저장 
-	int b_rotation; //블록 회전값 저장 
-	//int b_type_next; //다음 블록값 저장 
-
-	x = 22; //블록 생성 위치x좌표(게임판의 가운데) 
-	y = -1;  //블록 생성위치 y좌표(제일 위)
-	//b_type = b_type_next; //다음블럭값을 가져옴 
-	//b_type_next = rand() % 7; //다음 블럭을 만듦 
-	b_rotation = 0;  //회전은 0번으로 가져옴 
-
-	//new_block_on = 0; //new_block flag를 끔  
-
-	// 테트리스 맨위 좌표
-	for (i = 0; i<4; i++) {  
-		for (j = 0; j<4; j++) {
-			if (blocks[b_type][b_rotation][i][j]==1) board[y+i][x+j] = ACTIVE_BLOCK;
-		}
-	}
-	
-	gotoxy(x, y);// 보드에 정중앙
-
-
-	getc(stdin);
-}
-
-void reset_Board()
-{
-	int x, y;
-	int board[BOARD_HEIGHT + 1][BOARD_WIDTH + 2] = { 0, };
-
-	system("cls");   // 화면 클리어
-
-	//중앙보드라인
+	////////////////////// 보드판 동기화 ////////////////////
 	for (x = 1; x <= BOARD_WIDTH + 1; x++)
 	{
 		board[BOARD_HEIGHT][x] = 1; //board 배열중앙1인식
@@ -259,7 +171,7 @@ void reset_Board()
 		if (y == BOARD_HEIGHT)
 			printf("┗");
 		else
-				printf("┃");
+			printf("┃");
 	}
 	//오른쪽보드라인
 	for (y = 0; y<BOARD_HEIGHT + 1; y++)
@@ -269,51 +181,77 @@ void reset_Board()
 		if (y == BOARD_HEIGHT)
 			printf("┛");
 		else
-				printf("┃");
+			printf("┃");
 	}
 
-	//모서리값값변경
-	/*
-	board[20][0] = 2;
-	board[20][11] = 2;
-	*/
 
+	/////////////// NEW BLOCK ///////////////
+	new_Block(board);
+	/////////////////////////////////////////
 
-
-	//보드판숫자보기
-	
-	system("cls");
-	gotoxy(6,2);
-	for(y=0; y<=BOARD_HEIGHT; y++){
-	      for(x=0; x<=BOARD_WIDTH+1; x++){
-	              gotoxy(4+(x*2),2+y);
-	              printf("%d ",board[y][x]);
-	      }
-	      printf("\n");
+	// 메인보드라인
+	gotoxy(6, 2);
+	for (y = 0; y <= BOARD_HEIGHT; y++) {
+		for (x = 0; x <= BOARD_WIDTH + 1; x++) {
+			if (board[y][x]==ACTIVE_BLOCK) {
+				gotoxy(4 + (x * 2), 2 + y);
+				printf("■");
+			}
+			
+		}
+		printf("\n");
 	}
-	
-
-	gotoxy(36,2); 	printf("Best: 1000");
-	gotoxy(36,3); 	printf("Score: 100");
-
-	gotoxy(36,6);	printf(" NEXT ");
-	gotoxy(36,7);	printf("┌━━━━━━┐");
-	gotoxy(36,8);	printf("┃            ┃");
-	gotoxy(36,9);	printf("┃            ┃");
-	gotoxy(36,10);	printf("┃            ┃");
-	gotoxy(36,11);	printf("┗━━━━━━┘");
-
-	gotoxy(36,14);	printf("KEY");
-	gotoxy(36,15);	printf("    ESC (P) : 나가기(메뉴)");
-	gotoxy(36,17);	printf("    ↑상 ↓하 ←좌 →우");
-	gotoxy(36,19);	printf("    SPACE : 맨밑으로내리기");
-
 	getc(stdin);
+	///////////////////////////////////////////////////////////
 
-
-	printf("\n");
+	// 배열 보기
+	/*
+	system("cls");
+	gotoxy(6, 2);
+	for (y = 0; y <= BOARD_HEIGHT; y++) {
+		for (x = 0; x <= BOARD_WIDTH + 1; x++) {
+			gotoxy(4 + (x * 2), 2 + y);
+			printf("%d ", board[y][x]);
+		}
+		printf("\n");
+	}
+	*/
+	getc(stdin);
 }
 
+// 블럭 동기화
+void new_Block(int board[][BOARD_WIDTH + 2]) {
+
+	srand((unsigned)time(NULL));  // 난수 생성
+
+	int b_type = 1; //블록 종류를 저장 
+	int b_rotation; //블록 회전값 저장 
+	int b_type_next; //다음 블록값 저장 
+
+	b_type_next = rand() % 7; //다음 블럭을 만듦 
+	b_type = b_type_next; //다음블럭값을 가져옴 
+	b_rotation = 0;  //회전은 0번으로 가져옴 
+
+	//new_block_on = 0; //new_block flag를 끔  
+
+	/////////////// NEW BLOCK ///////////////
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			if (blocks[b_type][0][i][j] == 1)
+			{
+				board[i][j + 6] = ACTIVE_BLOCK;
+			}
+		}
+	}
+	/////////////////////////////////////////
+	
+	//gotoxy(x, y);// 보드에 정중앙
+
+
+	//getc(stdin);
+}
+
+// 게임 오버
 void Game_over() {
 	system("cls");
 
@@ -329,29 +267,4 @@ void Game_over() {
 	gotoxy(23, 14); printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤");
 
 	getc(stdin);
-}
-
-// 텍스트 색깔 변경
-void textColor(int color_number) {
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color_number);
-}
-
-// 커서 위치 변경
-void gotoxy(int x, int y) {
-	COORD pos = { x,y };
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
-}
-
-// 커서 보이기 & 숨기기
-void Cursor(int n) 
-{
-	HANDLE hConsole;
-	CONSOLE_CURSOR_INFO ConsoleCursor;
-
-	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	ConsoleCursor.bVisible = n;
-	ConsoleCursor.dwSize = 1;
-
-	SetConsoleCursorInfo(hConsole, &ConsoleCursor);
 }
