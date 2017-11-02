@@ -255,11 +255,11 @@ void new_Block(int board[][BOARD_WIDTH + 2]) {
 void Game_over() {
 	system("cls");
 
-	gotoxy(23, 5); printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤"); //게임오버 메세지 
-	gotoxy(23, 6); printf("▤                              ▤");
-	gotoxy(23, 7); printf("▤  +-----------------------+   ▤");
-	gotoxy(23, 8); printf("▤  |   G A M E  O V E R    |   ▤");
-	gotoxy(23, 9); printf("▤  +-----------------------+   ▤");
+	gotoxy(23,  5); printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤"); //게임오버 메세지 
+	gotoxy(23,  6); printf("▤                              ▤");
+	gotoxy(23,  7); printf("▤  +-----------------------+   ▤");
+	gotoxy(23,  8); printf("▤  |   G A M E  O V E R    |   ▤");
+	gotoxy(23,  9); printf("▤  +-----------------------+   ▤");
 	gotoxy(23, 10); printf("▤                              ▤");
 	gotoxy(23, 11); printf("▤    YOUR SCORE: ...           ▤");
 	gotoxy(23, 12); printf("▤                              ▤");
@@ -267,4 +267,32 @@ void Game_over() {
 	gotoxy(23, 14); printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤");
 
 	getc(stdin);
+}
+
+void check_Key() {
+	int key = 0; //키값 초기화
+
+	/*
+	while (1)
+	{
+		key = _getch();
+
+		if (key == 224) {
+			key = _getch();
+			switch (key) {
+			case LEFT:
+			case RIGHT:
+			case UP:
+			case DOWN:
+			}
+		}
+		else {
+			switch (key) {
+			case SPACE:
+			case ESC:
+				
+			}
+		}
+	}
+	*/
 }
