@@ -16,6 +16,9 @@
 #define ESC 27 //게임종료
 #define Enter 13 //엔터
 
+#define False 0
+#define True 1
+
 #define BOARD_HEIGHT 20 // ┃개수   //보드판
 #define BOARD_WIDTH 13// ━개수
 #define BOARD_X 4 //보드열x좌표
@@ -45,11 +48,15 @@ typedef struct tetris {
 ////////////////  SYSTEM.C   /////////////////////////
 int T_START_Display();  //테트리스 처음 시작 화면
 
-void new_Board(int board[][BOARD_WIDTH + 2]);
+void Update_Board(int board[][BOARD_WIDTH + 2]);
 
 void new_Block(int board[][BOARD_WIDTH + 2]);
 
 void Game_over();
+
+void move_Block(int board[][BOARD_WIDTH + 2]);
+
+void board_Check(int board[][BOARD_WIDTH + 2]);
 
 ////////////////  UTILE.C   /////////////////////////
 void textColor(int color_number); // 글자 색깔 바꾸는 함수

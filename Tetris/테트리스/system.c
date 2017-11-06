@@ -17,6 +17,8 @@ int blocks[7][4][4][4] = {
 	{ { 0,0,0,0,0,1,0,0,1,1,1,0,0,0,0,0 },{ 0,0,0,0,0,1,0,0,0,1,1,0,0,1,0,0 },
 	{ 0,0,0,0,0,0,0,0,1,1,1,0,0,1,0,0 },{ 0,0,0,0,0,1,0,0,1,1,0,0,0,1,0,0 } }
 }; //블록모양 저장 4*4공간에 블록을 표현 blcoks[b_type][b_rotation][i][j]로 사용 
+//////////////////////////////////////////////////////////////////////////////
+int Board_flag = True;    //  새로운 보드가 필요함을 알리는 FLAG
 
 // 테트리스 맨 처음 시작 화면 
 int T_START_Display() {
@@ -150,46 +152,45 @@ int T_START_Display() {
 }
 
 // 보드 동기화
-void new_Board(int board[][BOARD_WIDTH + 2]) {
+void Update_Board(int board[][BOARD_WIDTH + 2]) {
 	int x,y;
 	
-	memset(board, EMPTY, sizeof(board)*(BOARD_HEIGHT + 1)*(BOARD_WIDTH + 2)); //보드 메모리 초기화   memset(변수, 초기화값, 변수크기)
+	////////////////////// 새로운 보드판 생성 ////////////////////
+	if (Board_flag == True) {
+		memset(board, EMPTY, sizeof(board)*(BOARD_HEIGHT + 1)*(BOARD_WIDTH + 2)); //보드 메모리 초기화   memset(변수, 초기화값, 변수크기)
 
-	system("cls");
-	////////////////////// 보드판 동기화 ////////////////////
-	for (x = 1; x <= BOARD_WIDTH + 1; x++)
-	{
-		board[BOARD_HEIGHT][x] = 1; //board 배열중앙1인식
-		gotoxy((BOARD_X)+x * 2, BOARD_Y + BOARD_HEIGHT);  //콘솔좌표
-		printf("━");
+		system("cls");
+		for (x = 1; x <= BOARD_WIDTH + 1; x++)
+		{
+			board[BOARD_HEIGHT][x] = 1; //board 배열중앙1인식
+			gotoxy((BOARD_X)+x * 2, BOARD_Y + BOARD_HEIGHT);  //콘솔좌표
+			printf("━");
+		}
+		//왼쪽보드라인
+		for (y = 0; y<BOARD_HEIGHT + 1; y++)
+		{
+			board[y][0] = 1; //board 배열왼쪽1인식
+			gotoxy(BOARD_X, BOARD_Y + y);
+			if (y == BOARD_HEIGHT)
+				printf("┗");
+			else
+				printf("┃");
+		}
+		//오른쪽보드라인
+		for (y = 0; y<BOARD_HEIGHT + 1; y++)
+		{
+			board[y][BOARD_WIDTH + 1] = 1; //board 배열오른쪽1인식
+			gotoxy(BOARD_X + (BOARD_WIDTH + 2) * 2, BOARD_Y + y);
+			if (y == BOARD_HEIGHT)
+				printf("┛");
+			else
+				printf("┃");
+		}
+		Board_flag = False;
 	}
-	//왼쪽보드라인
-	for (y = 0; y<BOARD_HEIGHT + 1; y++)
-	{
-		board[y][0] = 1; //board 배열왼쪽1인식
-		gotoxy(BOARD_X, BOARD_Y + y);
-		if (y == BOARD_HEIGHT)
-			printf("┗");
-		else
-			printf("┃");
-	}
-	//오른쪽보드라인
-	for (y = 0; y<BOARD_HEIGHT + 1; y++)
-	{
-		board[y][BOARD_WIDTH + 1] = 1; //board 배열오른쪽1인식
-		gotoxy(BOARD_X + (BOARD_WIDTH + 2) * 2, BOARD_Y + y);
-		if (y == BOARD_HEIGHT)
-			printf("┛");
-		else
-			printf("┃");
-	}
+	///////////////////////////////////////////////////////////
 
-
-	/////////////// NEW BLOCK ///////////////
-	new_Block(board);
-	/////////////////////////////////////////
-
-	// 메인보드라인
+	// 블럭 그리기
 	gotoxy(6, 2);
 	for (y = 0; y <= BOARD_HEIGHT; y++) {
 		for (x = 0; x <= BOARD_WIDTH + 1; x++) {
@@ -199,24 +200,8 @@ void new_Board(int board[][BOARD_WIDTH + 2]) {
 			}
 			
 		}
-		printf("\n");
 	}
-	getc(stdin);
-	///////////////////////////////////////////////////////////
-
-	// 배열 보기
-	/*
-	system("cls");
-	gotoxy(6, 2);
-	for (y = 0; y <= BOARD_HEIGHT; y++) {
-		for (x = 0; x <= BOARD_WIDTH + 1; x++) {
-			gotoxy(4 + (x * 2), 2 + y);
-			printf("%d ", board[y][x]);
-		}
-		printf("\n");
-	}
-	*/
-	getc(stdin);
+	
 }
 
 // 블럭 동기화
@@ -224,15 +209,13 @@ void new_Block(int board[][BOARD_WIDTH + 2]) {
 
 	srand((unsigned)time(NULL));  // 난수 생성
 
-	int b_type = 1; //블록 종류를 저장 
+	int b_type; //블록 종류를 저장 
 	int b_rotation; //블록 회전값 저장 
 	int b_type_next; //다음 블록값 저장 
 
 	b_type_next = rand() % 7; //다음 블럭을 만듦 
 	b_type = b_type_next; //다음블럭값을 가져옴 
 	b_rotation = 0;  //회전은 0번으로 가져옴 
-
-	//new_block_on = 0; //new_block flag를 끔  
 
 	/////////////// NEW BLOCK ///////////////
 	for (int i = 0; i < 4; i++) {
@@ -244,11 +227,6 @@ void new_Block(int board[][BOARD_WIDTH + 2]) {
 		}
 	}
 	/////////////////////////////////////////
-	
-	//gotoxy(x, y);// 보드에 정중앙
-
-
-	//getc(stdin);
 }
 
 // 게임 오버
@@ -295,4 +273,33 @@ void check_Key() {
 		}
 	}
 	*/
+}
+
+void move_Block(int board[][BOARD_WIDTH + 2]) {
+	
+	for (int i = BOARD_HEIGHT; i <= 0; i--) {
+		for (int j = BOARD_WIDTH; j <= 0; j--) {
+			if (board[i][j] == ACTIVE_BLOCK) {       //  블럭이 이동가능한 블럭이면
+				board[i][j] = EMPTY;
+				board[i + 1][j] = ACTIVE_BLOCK;
+			}
+		}
+	}
+}
+
+void board_Check(int board[][BOARD_WIDTH + 2]) {
+	int y, x;
+	// 배열 보기
+
+	system("cls");
+	gotoxy(6, 2);
+	for (y = 0; y <= BOARD_HEIGHT; y++) {
+		for (x = 0; x <= BOARD_WIDTH + 1; x++) {
+			gotoxy(4 + (x * 2), 2 + y);
+			printf("%d ", board[y][x]);
+		}
+		printf("\n");
+	}
+
+	getc(stdin);
 }

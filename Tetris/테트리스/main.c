@@ -17,8 +17,8 @@ int main() {
 		switch (Count)
 		{
 		case 1:
-			new_Board(board);   // 보드판 동기화
-			//new_Block(board);        // 블록 동기화
+			Update_Board(board);   // 보드판 갱신
+			board_Check(board);
 			
 			break;
 		case 2:
