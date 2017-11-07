@@ -48,15 +48,15 @@ typedef struct tetris {
 ////////////////  SYSTEM.C   /////////////////////////
 int T_START_Display();  //테트리스 처음 시작 화면
 
-void Update_Board(int board[][BOARD_WIDTH + 2]);
+void Update_Board(int board[][BOARD_WIDTH]);
 
-void new_Block(int board[][BOARD_WIDTH + 2]);
+void new_Block(int board[][BOARD_WIDTH]);
 
 void Game_over();
 
-void move_Block(int board[][BOARD_WIDTH + 2]);
+void move_Block(int board[][BOARD_WIDTH]);
 
-void board_Check(int board[][BOARD_WIDTH + 2]);
+void board_Check(int board[][BOARD_WIDTH]);
 
 ////////////////  UTILE.C   /////////////////////////
 void textColor(int color_number); // 글자 색깔 바꾸는 함수

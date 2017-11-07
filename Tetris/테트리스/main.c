@@ -1,7 +1,7 @@
 #include "Header.h"
 
 ///////////////////// 전역 변수 선언 ///////////////////
-int board[BOARD_HEIGHT + 1][BOARD_WIDTH + 2] = { EMPTY, };   //// 현재 사용중인 보드판   EMPTY = 0  //초기값
+int board[BOARD_HEIGHT][BOARD_WIDTH] = { EMPTY, };   //// 현재 사용중인 보드판   EMPTY = 0  //초기값
 
 
 int main() {
@@ -17,9 +17,12 @@ int main() {
 		switch (Count)
 		{
 		case 1:
-			Update_Board(board);   // 보드판 갱신
-			board_Check(board);
 			
+			Update_Board(board);
+			new_Block(board);
+			Update_Board(board);
+			_getch();
+			board_Check(board);
 			break;
 		case 2:
 			printf("\t\t\t랭킹은 현재 준비중입니다.\n\n");
