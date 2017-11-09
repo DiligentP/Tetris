@@ -17,12 +17,11 @@ int main() {
 		switch (Count)
 		{
 		case 1:
-			
-			Update_Board(board);
-			new_Block(board);
-			Update_Board(board);
-			_getch();
-			board_Check(board);
+			while (1) {
+				Update_Board(board);
+				new_Block(board);
+				move_Block(board);
+			}
 			break;
 		case 2:
 			printf("\t\t\t랭킹은 현재 준비중입니다.\n\n");

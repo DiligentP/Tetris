@@ -21,6 +21,8 @@ int blocks[7][4][4][4] = {
 int Board_flag = True;    //  새로운 보드가 필요함을 알리는 FLAG
 int Block_flag = True;    // 새로운 블럭이 필요함을 알리는 FLAG
 
+int SPEED = 500;
+
 // 테트리스 맨 처음 시작 화면 
 int T_START_Display() {
 	int KeyBoard = 0; int count = 0; //  KeyBoard : 키보드 값을 받는 변수 , count : UP(72) = +1, DOWN(80) = -1
@@ -158,42 +160,62 @@ void Update_Board(int board[][BOARD_WIDTH]) {
 
 	////////////////////// 새로운 보드판 생성 ////////////////////
 	if (Board_flag == True) {
+		
+		//memset(변수, 초기화값, 변수크기)
+		memset(board, EMPTY, sizeof(board)*(BOARD_HEIGHT)*(BOARD_WIDTH)); //보드 메모리 초기화   [보드의 모든값을 EMPTY = 0(빈공간) 으로 만듭니다]
 
-		memset(board, EMPTY, sizeof(board)*(BOARD_HEIGHT)*(BOARD_WIDTH)); //보드 메모리 초기화   memset(변수, 초기화값, 변수크기)
-
+		// 블럭 벽 만들기//
 		for (y = 0; y < BOARD_HEIGHT; y++) {
 			for (x = 0; x < BOARD_WIDTH; x++) {
 
-				if (x == 0) { board[y][x] = 1; }
+				if (x == 0) { board[y][x] = WALL; }                              //보드의 오른쪽 벽을 만듭니다(ㅣ)
 
-				if (x == BOARD_WIDTH - 1) { board[y][x] = 1; }
+				if (x == BOARD_WIDTH - 1) { board[y][x] = WALL; }                //보드의 왼쪽 벽을 만듭니다(ㅣ)
 
-				if (y == BOARD_HEIGHT - 1) { board[y][x] = 1; }
+				if (y == BOARD_HEIGHT - 1) { board[y][x] = WALL; }				  //보드의 아래쪽 벽을 만듭니다(ㅡ)
 			}
 		}
-
+		//////////////////
 		Board_flag = False;
 	}
 	///////////////////////////////////////////////////////////
 
 	system("cls");
 
+	// 블럭 벽 만들기//
+	for (y = 0; y < BOARD_HEIGHT; y++) {
+		for (x = 0; x < BOARD_WIDTH; x++) {
+
+			if (x == 0) { board[y][x] = WALL; }                              //보드의 오른쪽 벽을 만듭니다(ㅣ)
+
+			if (x == BOARD_WIDTH - 1) { board[y][x] = WALL; }                //보드의 왼쪽 벽을 만듭니다(ㅣ)
+
+			if (y == BOARD_HEIGHT - 1) { board[y][x] = WALL; }				  //보드의 아래쪽 벽을 만듭니다(ㅡ)
+		}
+	}
+
+	
+
 	// 블럭 그리기
 	for (y = 0; y < BOARD_HEIGHT; y++) {
 		for (x = 0; x < BOARD_WIDTH; x++) {
-			if (board[y][x] == ACTIVE_BLOCK) {
+			if (board[y][x] == ACTIVE_BLOCK) {			// 블럭값이 ACTIVE_BLOCK = -2 (움직일수 있는 블럭)
 				gotoxy(6 + (x * 2), 2 + y);
 				printf("■");
 			}
-			if (board[y][x] == WALL)
+			if (board[y][x] == WALL)					// 블럭값이 WALL = 1  (벽)
 			{
+				gotoxy(6 + (x * 2), 2 + y);
+				printf("▒");
+			}
+			if (board[y][x] == EMPTY)					// 블럭값이 EMPTY = 0 (빈공간)
+			{
+				gotoxy(6 + (x * 2), 2 + y);
+				printf("  ");
+			}
+			if (board[y][x] == INACTIVE_BLOCK) {
 				gotoxy(6 + (x * 2), 2 + y);
 				printf("■");
-			}
-			if (board[y][x] == EMPTY)
-			{
-				gotoxy(6 + (x * 2), 2 + y);
-				printf("0");
 			}
 		}
 	}
@@ -274,7 +296,20 @@ void check_Key() {
 }
 
 void move_Block(int board[][BOARD_WIDTH]) {
-	
+	int x, y;
+
+	for (y = BOARD_HEIGHT - 1; y >= 0; y--) {
+		for (x = BOARD_WIDTH - 1; x >= 0; x--) {
+			if (board[y][x] == ACTIVE_BLOCK) {
+				if (board[y + 1][x] == WALL || board[y + 1][x] == INACTIVE_BLOCK) {
+					board[y][x] = INACTIVE_BLOCK;
+					break;
+				}
+				board[y + 1][x] = board[y][x];
+				board[y][x] = EMPTY;
+			}
+		}
+	}	
 }
 
 // 블럭의 배열을 보는 함수
@@ -287,7 +322,7 @@ void board_Check(int board[][BOARD_WIDTH]) {
 	for (y = 0; y < BOARD_HEIGHT; y++) {
 		for (x = 0; x < BOARD_WIDTH; x++) {
 			//gotoxy(4 + (x * 2), 2 + y);
-			printf("%2d ", board[y][x]);
+			printf("%d ", board[y][x]);
 		}
 		printf("\n");
 	}
