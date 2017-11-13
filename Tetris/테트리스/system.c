@@ -300,9 +300,12 @@ void move_Block(int board[][BOARD_WIDTH]) {
 
 	for (y = BOARD_HEIGHT - 1; y >= 0; y--) {
 		for (x = BOARD_WIDTH - 1; x >= 0; x--) {
-			if (board[y][x] == ACTIVE_BLOCK) {
-				if (board[y + 1][x] == WALL || board[y + 1][x] == INACTIVE_BLOCK) {
-					board[y][x] = INACTIVE_BLOCK;
+			if (board[y][x] == ACTIVE_BLOCK) {											// 도형이 ACTIVE_BLOCK 이면 
+				if (board[y + 1][x] == WALL || board[y + 1][x] == INACTIVE_BLOCK) {		// 도형 아래가 벽이거나 이동 완료된 블럭이면
+					if (board [y][x+1] == (WALL|| INACTIVE_BLOCK) || board[y][x-1] == (WALL || INACTIVE_BLOCK)) {
+						board[y][x] == INACTIVE_BLOCK;
+					}
+					board[y][x] = INACTIVE_BLOCK;										// 도형을 이동 완료된 블럭으로 바꿉니다.
 					break;
 				}
 				board[y + 1][x] = board[y][x];

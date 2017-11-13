@@ -21,6 +21,7 @@ int main() {
 				Update_Board(board);
 				new_Block(board);
 				move_Block(board);
+				Sleep(500);
 			}
 			break;
 		case 2:
