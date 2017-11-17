@@ -21,8 +21,6 @@
 
 #define BOARD_HEIGHT 20 // ┃개수   //보드판
 #define BOARD_WIDTH 13// ━개수
-#define BOARD_X 4 //보드열x좌표
-#define BOARD_Y 2 //보드행y좌표
 
 #define ACTIVE_BLOCK -2 // 게임판배열에 저장될 이동가능한 블록의 상태들 
 #define CEILLING -1     // 블록이 이동할 수 있는 공간은 0 또는 음의 정수로 표현 
@@ -57,7 +55,7 @@ void Game_over();
 void move_Block(int board[][BOARD_WIDTH]);
 
 void board_Check(int board[][BOARD_WIDTH]);
-void check_block(int board[][BOARD_WIDTH]);
+int Crush_check();
 
 ////////////////  UTILE.C   /////////////////////////
 void textColor(int color_number); // 글자 색깔 바꾸는 함수

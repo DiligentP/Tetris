@@ -20,8 +20,14 @@ int blocks[7][4][4][4] = {
 //////////////////////////////////////////////////////////////////////////////
 int Board_flag = True;    //  새로운 보드가 필요함을 알리는 FLAG
 int Block_flag = True;    // 새로운 블럭이 필요함을 알리는 FLAG
+int Clush_flag = False;
 
 int SPEED = 500;
+
+int Bx, By;		//블럭의 생성위치
+int B_type; //블록 종류를 저장 
+int B_rotation; //블록 회전값 저장 
+int B_type_next; //다음 블록값 저장 
 
 // 테트리스 맨 처음 시작 화면 
 int T_START_Display() {
@@ -226,27 +232,36 @@ void new_Block(int board[][BOARD_WIDTH]) {
 
 	srand((unsigned)time(NULL));  // 난수 생성
 
-	int b_type; //블록 종류를 저장 
-	int b_rotation; //블록 회전값 저장 
-	int b_type_next; //다음 블록값 저장 
-
-	b_type_next = rand() % 7; //다음 블럭을 만듦 
-	b_type = b_type_next; //다음블럭값을 가져옴 
-	b_rotation = 0;  //회전은 0번으로 가져옴 
+	Bx = (BOARD_WIDTH / 2) - 1;
+	By = 0;
+	B_type_next = rand() % 7; //다음 블럭을 만듦 
+	B_type = B_type_next; //다음블럭값을 가져옴 
+	B_rotation = 3;  //회전은 0번으로 가져옴 
 
 	/////////////// NEW BLOCK ///////////////
 	if (Block_flag == True) {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-				if (blocks[b_type][0][i][j] == 1)
+				if (blocks[B_type][B_rotation][i][j] == 1)
 				{
-					board[i-1][j + 5] = ACTIVE_BLOCK;
+					board[By+i][Bx+j] = ACTIVE_BLOCK;
 				}
 			}
 		}
 		Block_flag = False;
 	}
 	/////////////////////////////////////////
+}
+
+int Crush_check(int board[][BOARD_WIDTH], int Bx, int By, int B_rotation) {
+	int i, j;
+	for (i = 0; i<4; i++) {
+		for (j = 0; j<4; j++) { //지정된 위치의 게임판과 블럭모양을 비교해서 겹치면 false를 리턴 
+			if (blocks[B_type][B_rotation][i][j] == 1 && board[By + i][Bx + j]>0)
+				return False;
+		}
+	}
+	return True; //하나도 안겹치면 true리턴 
 }
 
 // 게임 오버

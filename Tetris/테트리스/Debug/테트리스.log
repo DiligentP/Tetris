@@ -1,4 +1,7 @@
-﻿  system.c
-e:\asio\c언어\tetris\tetris\tetris\테트리스\system.c(306): warning C4553: '==': 의미 없는 연산자입니다. '='을(를) 사용하려고 했습니까?
+﻿  utile.c
+  system.c
+e:\asio\c언어\tetris\tetris\tetris\테트리스\system.c(309): warning C4553: '==': 의미 없는 연산자입니다. '='을(를) 사용하려고 했습니까?
+  main.c
+  코드를 생성하고 있습니다...
   테트리스.vcxproj -> E:\Asio\C언어\Tetris\Tetris\Tetris\Debug\테트리스.exe
   테트리스.vcxproj -> E:\Asio\C언어\Tetris\Tetris\Tetris\Debug\테트리스.pdb (Partial PDB)
