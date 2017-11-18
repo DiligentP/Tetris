@@ -20,7 +20,7 @@ int blocks[7][4][4][4] = {
 //////////////////////////////////////////////////////////////////////////////
 int Board_flag = True;    //  새로운 보드가 필요함을 알리는 FLAG
 int Block_flag = True;    // 새로운 블럭이 필요함을 알리는 FLAG
-int Clush_flag = False;
+int Crush_flag = False;   // 블럭의 충돌 유무를 판단하는 FLAG
 
 int SPEED = 500;
 
@@ -228,7 +228,7 @@ void Update_Board(int board[][BOARD_WIDTH]) {
 }
 
 // 블럭 동기화
-void new_Block(int board[][BOARD_WIDTH]) {
+void New_block(int board[][BOARD_WIDTH]) {
 
 	srand((unsigned)time(NULL));  // 난수 생성
 
@@ -236,7 +236,7 @@ void new_Block(int board[][BOARD_WIDTH]) {
 	By = 0;
 	B_type_next = rand() % 7; //다음 블럭을 만듦 
 	B_type = B_type_next; //다음블럭값을 가져옴 
-	B_rotation = 3;  //회전은 0번으로 가져옴 
+	B_rotation = 0;  //회전은 0번으로 가져옴 
 
 	/////////////// NEW BLOCK ///////////////
 	if (Block_flag == True) {
@@ -253,6 +253,7 @@ void new_Block(int board[][BOARD_WIDTH]) {
 	/////////////////////////////////////////
 }
 
+// 충돌을 확인하는 함수 (True  , False)
 int Crush_check(int board[][BOARD_WIDTH], int Bx, int By, int B_rotation) {
 	int i, j;
 	for (i = 0; i<4; i++) {
@@ -282,7 +283,8 @@ void Game_over() {
 	getc(stdin);
 }
 
-void check_Key() {
+// 키입력이 있는지 확인는 함수
+void Check_key() {
 	int key = 0; //키값 초기화
 
 	/*
@@ -310,24 +312,109 @@ void check_Key() {
 	*/
 }
 
-void move_Block(int board[][BOARD_WIDTH]) {
-	int x, y;
-
-	for (y = BOARD_HEIGHT - 1; y >= 0; y--) {
-		for (x = BOARD_WIDTH - 1; x >= 0; x--) {
-			if (board[y][x] == ACTIVE_BLOCK) {											// 도형이 ACTIVE_BLOCK 이면 
-				if (board[y + 1][x] == WALL || board[y + 1][x] == INACTIVE_BLOCK) {		// 도형 아래가 벽이거나 이동 완료된 블럭이면
-					if (board [y][x+1] == (WALL|| INACTIVE_BLOCK) || board[y][x-1] == (WALL || INACTIVE_BLOCK)) {
-						board[y][x] == INACTIVE_BLOCK;
-					}
-					board[y][x] = INACTIVE_BLOCK;										// 도형을 이동 완료된 블럭으로 바꿉니다.
-					break;
-				}
-				board[y + 1][x] = board[y][x];
-				board[y][x] = EMPTY;
+//블럭을 이동시키는 함수
+void Move_block(int board[][BOARD_WIDTH] ,int Dir) {
+	int i, j;
+	
+	switch (Dir) {
+	case LEFT: //왼쪽방향 
+		for (i = 0; i<4; i++) { //현재좌표의 블럭을 지움 
+			for (j = 0; j<4; j++) {
+				if (blocks[B_type][B_rotation][i][j] == 1) board[By + i][Bx + j] = EMPTY;
 			}
 		}
-	}	
+		for (i = 0; i<4; i++) { //왼쪽으로 한칸가서 active block을 찍음 
+			for (j = 0; j<4; j++) {
+				if (blocks[B_type][B_rotation][i][j] == 1) board[By + i][Bx + j - 1] = ACTIVE_BLOCK;
+			}
+		}
+		Bx--; //좌표값 이동 
+		break;
+
+	case RIGHT:    //오른쪽 방향. 왼쪽방향이랑 같은 원리로 동작 
+		for (i = 0; i<4; i++) {
+			for (j = 0; j<4; j++) {
+				if (blocks[B_type][B_rotation][i][j] == 1) board[By + i][Bx + j] = EMPTY;
+			}
+		}
+		for (i = 0; i<4; i++) {
+			for (j = 0; j<4; j++) {
+				if (blocks[B_type][B_rotation][i][j] == 1) board[By + i][Bx + j + 1] = ACTIVE_BLOCK;
+			}
+		}
+		Bx++;
+		break;
+
+	case DOWN:    //아래쪽 방향. 왼쪽방향이랑 같은 원리로 동작
+		for (i = 0; i<4; i++) {
+			for (j = 0; j<4; j++) {
+				if (blocks[B_type][B_rotation][i][j] == 1) board[By + i][Bx + j] = EMPTY;
+			}
+		}
+		for (i = 0; i<4; i++) {
+			for (j = 0; j<4; j++) {
+				if (blocks[B_type][B_rotation][i][j] == 1) board[By + i + 1][Bx + j] = ACTIVE_BLOCK;
+			}
+		}
+		By++;
+		break;
+
+	case UP: //키보드 위쪽 눌렀을때 회전시킴. 
+		for (i = 0; i<4; i++) { //현재좌표의 블럭을 지움  
+			for (j = 0; j<4; j++) {
+				if (blocks[B_type][B_rotation][i][j] == 1) board[By + i][Bx + j] = EMPTY;
+			}
+		}
+		B_rotation = (B_rotation + 1) % 4; //회전값을 1증가시킴(3에서 4가 되는 경우는 0으로 되돌림) 
+		for (i = 0; i<4; i++) { //회전된 블록을 찍음 
+			for (j = 0; j<4; j++) {
+				if (blocks[B_type][B_rotation][i][j] == 1) board[By + i][Bx + j] = ACTIVE_BLOCK;
+			}
+		}
+		break;
+
+	case 100: //블록이 바닥, 혹은 다른 블록과 닿은 상태에서 한칸위로 올려 회전이 가능한 경우 
+			  //이를 동작시키는 특수동작 
+		for (i = 0; i<4; i++) {
+			for (j = 0; j<4; j++) {
+				if (blocks[B_type][B_rotation][i][j] == 1) board[By + i][Bx + j] = EMPTY;
+			}
+		}
+		B_rotation = (B_rotation + 1) % 4;
+		for (i = 0; i<4; i++) {
+			for (j = 0; j<4; j++) {
+				if (blocks[B_type][B_rotation][i][j] == 1) board[By + i - 1][Bx + j] = ACTIVE_BLOCK;
+			}
+		}
+		By--;
+		break;
+	}
+}
+
+//블럭을 한칸 내리는 함수
+void Drop_block(int board[][BOARD_WIDTH]) {
+	int i, j;
+
+	if (Crush_flag && Crush_check(board, Bx, By + 1, B_rotation) == True) { Crush_flag = False;}  // 밑이 비어있으면 Crush_flag 를 끔.
+
+	if (Crush_flag && Crush_check(board, Bx, By + 1, B_rotation) == False) // 밑이 비어있지 않으면 
+	{
+		///////////////////////////////////////////          // 조작중인 블럭을 굳힘.
+		for (i = 0; i < BOARD_HEIGHT; i++) {
+			for (j = 0; j < BOARD_WIDTH; j++) {
+				if (board[i][j] == ACTIVE_BLOCK) {
+					board[i][j] = INACTIVE_BLOCK;
+				}
+			}
+		}
+		//////////////////////////////////////////
+		Crush_flag = False;
+		//Check_line();
+		Block_flag = True;
+		return;
+	}
+	if (Crush_flag && Crush_check(board, Bx, By + 1, B_rotation) == True) { Move_block(board, DOWN); }  // 밑이 비어있으면 블럭을 한칸 아래로 이동시킴
+	if (Crush_flag && Crush_check(board, Bx, By + 1, B_rotation) == False) { Crush_flag = True; }  // 밑으로 이동이 안되면 Crush_flag 를 켬.
 }
 
 // 블럭의 배열을 보는 함수

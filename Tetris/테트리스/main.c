@@ -17,12 +17,18 @@ int main() {
 		switch (Count)
 		{
 		case 1:
+			//while (1) {
+				//for (int i = 0; i < 5; i++) { // 블록이 한칸 떨어질때 5번의 키입력을 받을 수 있도록 함.
+					//Chack_key();   // 키입력을 확인함.
 			while (1) {
-				Update_Board(board);
-				new_Block(board);
-				move_Block(board);
-				Sleep(500);
+				Update_Board(board);  // 화면을 새로 그려줌.
+				New_block(board);	  // 새로운 블럭을 만듬
+				_getch();
 			}
+					
+				//}
+			//}
+			
 			break;
 		case 2:
 			printf("\t\t\t랭킹은 현재 준비중입니다.\n\n");

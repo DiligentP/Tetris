@@ -19,8 +19,8 @@
 #define False 0
 #define True 1
 
-#define BOARD_HEIGHT 20 // ┃개수   //보드판
-#define BOARD_WIDTH 13// ━개수
+#define BOARD_HEIGHT 20 // ┃개수 (세로)  //보드판
+#define BOARD_WIDTH 13	// ━개수 (가로)  
 
 #define ACTIVE_BLOCK -2 // 게임판배열에 저장될 이동가능한 블록의 상태들 
 #define CEILLING -1     // 블록이 이동할 수 있는 공간은 0 또는 음의 정수로 표현 
@@ -48,14 +48,17 @@ int T_START_Display();  //테트리스 처음 시작 화면
 
 void Update_Board(int board[][BOARD_WIDTH]);
 
-void new_Block(int board[][BOARD_WIDTH]);
+void New_block(int board[][BOARD_WIDTH]);
 
 void Game_over();
 
-void move_Block(int board[][BOARD_WIDTH]);
+void Move_block(int board[][BOARD_WIDTH]);
+
+void Drop_block(int board[][BOARD_WIDTH]);
 
 void board_Check(int board[][BOARD_WIDTH]);
-int Crush_check();
+
+int Crush_check(int board[][BOARD_WIDTH], int Bx, int By, int B_rotation);
 
 ////////////////  UTILE.C   /////////////////////////
 void textColor(int color_number); // 글자 색깔 바꾸는 함수
