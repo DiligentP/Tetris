@@ -286,30 +286,19 @@ void Game_over() {
 // 키입력이 있는지 확인는 함수
 void Check_key() {
 	int key = 0; //키값 초기화
-
-	/*
-	while (1)
-	{
+	
+	if (kbhit()) {				//키 값이 있는 경우
 		key = _getch();
 
-		if (key == 224) {
-			key = _getch();
+		if (key == 224) {		// 방향키 인 경우
+			/**/do { key = _getch(); } while (key == 224);		//방향키지시값을 버림
+
 			switch (key) {
-			case LEFT:
-			case RIGHT:
-			case UP:
-			case DOWN:
-			}
-		}
-		else {
-			switch (key) {
-			case SPACE:
-			case ESC:
-				
+			case LEFT:  // 왼쪽
+				if(Crush_check(Bx - 1, By, B_rotation))
 			}
 		}
 	}
-	*/
 }
 
 //블럭을 이동시키는 함수
