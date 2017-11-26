@@ -284,18 +284,38 @@ void Game_over() {
 }
 
 // 키입력이 있는지 확인는 함수
-void Check_key() {
+void Check_key(int board[][BOARD_WIDTH]) {
 	int key = 0; //키값 초기화
 	
-	if (kbhit()) {				//키 값이 있는 경우
+	if (_kbhit()) {				//키 값이 있는 경우
 		key = _getch();
 
 		if (key == 224) {		// 방향키 인 경우
-			/**/do { key = _getch(); } while (key == 224);		//방향키지시값을 버림
+			/**/do { key = _getch(); } while (key == 224);
 
 			switch (key) {
 			case LEFT:  // 왼쪽
-				if(Crush_check(Bx - 1, By, B_rotation))
+				if (Crush_check(board,Bx - 1, By, B_rotation) == True) {
+					Move_block(board, LEFT);
+					break;
+				}
+			case RIGHT: // 오른쪽
+				if (Crush_check(board, Bx + 1, By, B_rotation) == True) {
+					Move_block(board, RIGHT);
+					break;
+				}
+			case  DOWN:  // 아래쪽
+				if (Crush_check(board, Bx, By + 1, B_rotation) == True) {
+					Move_block(board, DOWN);
+					break;
+				}
+			case UP:  // 위쪽
+				if (Crush_check(board, Bx, By, (B_rotation + 1) % 4) == True) {
+					Move_block(board, UP);
+				}
+				else if (Crush_flag == 1 && Crush_check(board, Bx, By - 1, (B_rotation + 1) % 4) == True) {
+					Move_block(board, 100);
+				}
 			}
 		}
 	}
@@ -405,6 +425,7 @@ void Drop_block(int board[][BOARD_WIDTH]) {
 	if (Crush_flag && Crush_check(board, Bx, By + 1, B_rotation) == True) { Move_block(board, DOWN); }  // 밑이 비어있으면 블럭을 한칸 아래로 이동시킴
 	if (Crush_flag && Crush_check(board, Bx, By + 1, B_rotation) == False) { Crush_flag = True; }  // 밑으로 이동이 안되면 Crush_flag 를 켬.
 }
+
 
 // 블럭의 배열을 보는 함수
 void board_Check(int board[][BOARD_WIDTH]) {

@@ -17,11 +17,7 @@ int main() {
 		switch (Count)
 		{
 		case 1:
-			while (1) {
-				for (int i = 0; i < 5; i++) {
-					Check_key
-				}
-			}
+			Update_Board(board);
 			break;
 		case 2:
 			printf("\t\t\t랭킹은 현재 준비중입니다.\n\n");

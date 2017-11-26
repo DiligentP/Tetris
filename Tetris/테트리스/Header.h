@@ -52,7 +52,7 @@ void New_block(int board[][BOARD_WIDTH]);
 
 void Game_over();
 
-void Move_block(int board[][BOARD_WIDTH]);
+void Move_block(int board[][BOARD_WIDTH], int Dir);
 
 void Drop_block(int board[][BOARD_WIDTH]);
 
