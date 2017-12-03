@@ -28,25 +28,14 @@
 #define WALL 1          // 블록이 이동할 수 없는 벽
 #define INACTIVE_BLOCK 2 // 이동이 완료된 블록값
 
-/////////////////// 구조체 ////////////////////
-typedef struct tetris {
-
-	int level;       //레벨
-	int gmaeover;    //게임 오버
-	int score;       // 점수
-	int rotation;    // 도형의 위치
-	int absX, absY;  // 도형의 절대좌표
-	int curX, curY;  // 도형의 현재좌표
-	int curblock;    // 현재블럭
-	int nextblock;   // 다음블럭
-
-} Tetris; 
-/////////////////////////////////////////////////
-
 ////////////////  SYSTEM.C   /////////////////////////
 int T_START_Display();  //테트리스 처음 시작 화면
 
-void Update_Board(int board[][BOARD_WIDTH]);
+void T_reset();   // 테트리스 리셋
+
+void New_Board(int board[][BOARD_WIDTH]);
+
+void Draw_Board(int board[][BOARD_WIDTH]);
 
 void New_block(int board[][BOARD_WIDTH]);
 
@@ -59,6 +48,8 @@ void Drop_block(int board[][BOARD_WIDTH]);
 void board_Check(int board[][BOARD_WIDTH]);
 
 int Crush_check(int board[][BOARD_WIDTH], int Bx, int By, int B_rotation);
+
+void Check_line(int board[][BOARD_WIDTH]);
 
 ////////////////  UTILE.C   /////////////////////////
 void textColor(int color_number); // 글자 색깔 바꾸는 함수
