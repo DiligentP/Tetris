@@ -24,8 +24,8 @@ int main() {
 
 			while (1) {
 				New_block(board);		// 새로운 블럭을 만듭니다.
-				for (i = 0; i < 5; i++) {
-					Check_key(board);    // 초당 5번의 입력을 받고 명령을 수행합니다.
+  				for (i = 0; i < 3; i++) {
+					Key = Check_key(board);    // 초당 5번의 입력을 받고 명령을 수행합니다.
 					Draw_Board(board);	 // 보드를 그립니다.
 					Sleep(100);
 				}

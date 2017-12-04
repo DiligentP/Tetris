@@ -260,12 +260,12 @@ void Draw_Board(int board[][BOARD_WIDTH]) {
 int Crush_check(int board[][BOARD_WIDTH], int Bx, int By, int B_rotation) {
 	int i, j;
 	for (i = 0; i<4; i++) {
-		for (j = 0; j<4; j++) { //지정된 위치의 게임판과 블럭모양을 비교해서 겹치면 false를 리턴 
+		for (j = 0; j<4; j++) { //지정된 위치의 게임판과 블럭모양을 비교해서 충돌하면 false를 리턴 
 			if (blocks[B_type][B_rotation][i][j] == 1 && board[By + i][Bx + j]>0)
 				return False;
 		}
 	}
-	return True; //하나도 안겹치면 true리턴 
+	return True; //하나도 안충돌하면 true리턴 
 }
 
 // 키입력이 있는지 확인는 함수
@@ -306,12 +306,14 @@ int Check_key(int board[][BOARD_WIDTH]) {
 		else {
 			switch (key) {
 			case SPACE: //스페이스 키를 눌렀을떄
-				Space_flag = True;  //스페이스 flag 작동
-				while (Crush_check(board, Bx, By + 1, B_rotation) == False) {
+				//printf("스페이스바");
+				Space_flag = False;  //스페이스 flag 작동
+				while (Crush_check(board, Bx, By + 1, B_rotation) == True) {
 					Drop_block(board);
+					//Move_block(board, DOWN);
 				}
-				//Space_flag = False;
-				break;
+				Space_flag = True;
+				return Space_flag;
 
 			case P: //P(대문자) 눌렀을때 
 			case p: //p(소문자) 눌렀을때 
