@@ -4,6 +4,9 @@
 #include<time.h>
 #include<stdlib.h>
 #include<conio.h>
+#include<mmsystem.h>
+
+#pragma comment(lib,"winmm")// PlaySound 함수를 호출하기 위한 전처리기
 
 //////////////// 매크로 정의 ////////////////////
 #define LEFT 75 //좌로 이동    //키보드값들 
@@ -49,7 +52,7 @@ void board_Check(int board[][BOARD_WIDTH]);
 
 int Crush_check(int board[][BOARD_WIDTH], int Bx, int By, int B_rotation);
 
-void Check_line(int board[][BOARD_WIDTH]);
+int Check_line(int board[][BOARD_WIDTH]);
 
 ////////////////  UTILE.C   /////////////////////////
 void textColor(int color_number); // 글자 색깔 바꾸는 함수

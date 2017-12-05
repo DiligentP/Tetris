@@ -20,18 +20,22 @@ int main() {
 		switch (Count)
 		{
 		case GAMESTART:
+			PlaySound("tetris_background_music.wav", NULL, SND_ASYNC | SND_LOOP);  // 테트리스 음악 재생
+
 			New_Board(board);   // 새로운 보드를 만듭니다.
 
 			while (1) {
 				New_block(board);		// 새로운 블럭을 만듭니다.
-  				for (i = 0; i < 3; i++) {
+  				for (i = 0; i < 5; i++) {
 					Key = Check_key(board);    // 초당 5번의 입력을 받고 명령을 수행합니다.
 					Draw_Board(board);	 // 보드를 그립니다.
-					Sleep(100);
+					Sleep(SPEED());
 				}
 				Drop_block(board);       // 1초후에 블럭을 내립니다.
-				Check_line(board);		 // 라인을 체크합니다.
+				c = Check_line(board);		 // 라인을 체크합니다.
+				if (c == 1) { break; }
 			}
+			PlaySound(NULL, NULL, NULL); //음악 종료.
 			break;
 
 		case RANK:

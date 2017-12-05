@@ -16,7 +16,7 @@ int blocks[7][4][4][4] = {
 	{ 0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,0 },{ 0,0,0,0,0,1,1,0,0,1,0,0,0,1,0,0 } },
 	{ { 0,0,0,0,0,1,0,0,1,1,1,0,0,0,0,0 },{ 0,0,0,0,0,1,0,0,0,1,1,0,0,1,0,0 },
 	{ 0,0,0,0,0,0,0,0,1,1,1,0,0,1,0,0 },{ 0,0,0,0,0,1,0,0,1,1,0,0,0,1,0,0 } }
-}; //블록모양 저장 4*4공간에 블록을 표현 blcoks[b_type][b_rotation][i][j]로 사용 
+}; //블록모양 저장 4*4공간에 블록을 표현 blocks[b_type][b_rotation][i][j]로 사용 
 //////////////////////////////////////////////////////////////////////////////
 int board_cpy[BOARD_HEIGHT][BOARD_WIDTH] = { 100, };
 
@@ -24,7 +24,11 @@ int Block_flag = True;    // 새로운 블럭이 필요함을 알리는 FLAG
 int Crush_flag = True;   // 블럭의 충돌 유무를 판단하는 FLAG
 int Space_flag = False;   // 스페이스 키가 눌렸는지 판단하는 FLAG
 
-int SPEED = 500;
+int SPEED() {
+	// 초당 5번을 호출하기 때문에 X5
+	//X == X * 500
+	return 100;
+}
 
 int Bx, By;		//블럭의 생성위치
 int B_type; //블록 종류를 저장 
@@ -284,16 +288,19 @@ int Check_key(int board[][BOARD_WIDTH]) {
 					Move_block(board, LEFT);
 					break;
 				}
+				break;
 			case RIGHT: // 오른쪽
 				if (Crush_check(board, Bx + 1, By, B_rotation) == True) {
 					Move_block(board, RIGHT);
 					break;
 				}
+				break;
 			case  DOWN:  // 아래쪽
 				if (Crush_check(board, Bx, By + 1, B_rotation) == True) {
 					Move_block(board, DOWN);
 					break;
 				}
+				break;
 			case UP:  // 위쪽
 				if (Crush_check(board, Bx, By, (B_rotation + 1) % 4) == True) {
 					Move_block(board, UP);
@@ -301,6 +308,7 @@ int Check_key(int board[][BOARD_WIDTH]) {
 				else if (Crush_flag == 1 && Crush_check(board, Bx, By - 1, (B_rotation + 1) % 4) == True) {
 					Move_block(board, 100);
 				}
+				break;
 			}
 		}
 		else {
@@ -334,14 +342,12 @@ void Move_block(int board[][BOARD_WIDTH] ,int Dir) {
 	
 	switch (Dir) {
 	case LEFT: //왼쪽방향 
-		for (i = 0; i<4; i++) { //현재좌표의 블럭을 지움 
+		for (i = 0; i<4; i++) {  
 			for (j = 0; j<4; j++) {
-				if (blocks[B_type][B_rotation][i][j] == 1) board[By + i][Bx + j] = EMPTY;
-			}
-		}
-		for (i = 0; i<4; i++) { //왼쪽으로 한칸가서 active block을 찍음 
-			for (j = 0; j<4; j++) {
-				if (blocks[B_type][B_rotation][i][j] == 1) board[By + i][Bx + j - 1] = ACTIVE_BLOCK;
+				if (blocks[B_type][B_rotation][i][j] == 1) {
+					board[By + i][Bx + j] = EMPTY; //현재좌표의 블럭을 지움
+					board[By + i][Bx + j - 1] = ACTIVE_BLOCK; //왼쪽으로 한칸가서 active block을 찍음 
+				}
 			}
 		}
 		Bx--; //좌표값 이동 
@@ -450,7 +456,7 @@ void board_Check(int board[][BOARD_WIDTH]) {
 	getc(stdin);
 }
 
-void Check_line(int board[][BOARD_WIDTH]) {
+int Check_line(int board[][BOARD_WIDTH]) {
 	int i, j, k, l;
 
 	int block_amount; //한줄의 블록갯수를 저장하는 변수 
@@ -476,6 +482,8 @@ void Check_line(int board[][BOARD_WIDTH]) {
 	for (j = 1; j<BOARD_WIDTH - 1; j++) { //벽과 벽사이의 블록갯루를 셈 
 		if (board[3][j] > 0) {
 			Game_over();
+			_getch();
+			return 1;
 		}
 	}
 
