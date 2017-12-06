@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Interface.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="system.c" />
     <ClCompile Include="utile.c" />

@@ -20,164 +20,31 @@ int blocks[7][4][4][4] = {
 //////////////////////////////////////////////////////////////////////////////
 int board_cpy[BOARD_HEIGHT][BOARD_WIDTH] = { 100, };
 
-int Block_flag = True;    // 새로운 블럭이 필요함을 알리는 FLAG
-int Crush_flag = True;   // 블럭의 충돌 유무를 판단하는 FLAG
-int Space_flag = False;   // 스페이스 키가 눌렸는지 판단하는 FLAG
+int Block_flag = True;		// 새로운 블럭이 필요함을 알리는 FLAG
+int Crush_flag = True;		// 블럭의 충돌 유무를 판단하는 FLAG
+int Space_flag = False;		// 스페이스 키가 눌렸는지 판단하는 FLAG
 
-int SPEED() {
-	// 초당 5번을 호출하기 때문에 X5
-	//X == X * 500
-	return 100;
-}
+int Speed = 100;   // 초당 5번의 입력을 받기때문에 100 이지만 실제로는 500임.
+int Score = 0;
+int Level = 1;
 
-int Bx, By;		//블럭의 생성위치
-int B_type; //블록 종류를 저장 
-int B_rotation; //블록 회전값 저장 
-int B_type_next; //다음 블록값 저장 
-
-// 테트리스 맨 처음 시작 화면 
-int T_START_Display() {
-	int KeyBoard = 0; int count = 0; //  KeyBoard : 키보드 값을 받는 변수 , count : UP(72) = +1, DOWN(80) = -1
-
-	system("title T E T R I S");
-
-	int i = 0;
-
-	///////////////////// 테트리스 로고 ///////////////////////
-	/*
-	printf("\t ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ \n");
-	printf("\tㅣ■■■■■ ■■■■ ■■■■■ ■■■■  ■■■ ■■■■ㅣ\n");
-	printf("\tㅣ    ■     ■           ■     ■     ■   ■   ■      ㅣ\n");
-	printf("\tㅣ    ■     ■■■■     ■     ■■■■    ■   ■■■■ㅣ\n");
-	printf("\tㅣ    ■     ■           ■     ■     ■   ■         ■ㅣ\n");
-	printf("\tㅣ    ■     ■■■■     ■     ■     ■ ■■■ ■■■■ㅣ\n");
-	printf("\t ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ \n\n\t");
-
-								G A M E S T A R T
-								R A N K I N G
-								S Y S T E M
-								E X I T
-	*/
-
-	int TETRIS_LOGO[] =
-	{
-		9, 8, 0, 1, 1, 1, 0, 2, 2, 2, 0, 3, 3, 3, 0, 4, 4, 4, 0, 5, 0, 6, 6, 6, 0, 10,
-		8, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 3, 0, 0, 4, 0, 4, 0, 5, 0, 6, 0, 0, 0,10,
-		8, 0, 0, 1, 0, 0, 2, 2, 2, 0, 0, 3, 0, 0, 4, 4, 4, 0, 5, 0, 6, 6, 6, 0,10,
-		8, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 3, 0, 0, 4, 4, 0, 0, 5, 0, 0, 0, 6, 0,10,
-		8, 0, 0, 1, 0, 0, 2, 2, 2, 0, 0, 3, 0, 0, 4, 0, 4, 0, 5, 0, 6, 6, 6, 0, 7
-	};
-	while (1)
-	{
-		//printf("%d",count);
-		//printf("%d",KeyBoard);
-		system("cls");
-
-		for (int i = 0; ; i++) {
-			if (TETRIS_LOGO[i] == 10) {
-				printf("\n");
-			}
-			if (TETRIS_LOGO[i] == 9) {
-				printf("\n\n\n\n\n");
-			}
-			if (TETRIS_LOGO[i] == 8) {
-				printf("\t    ");
-			}
-			if (TETRIS_LOGO[i] == 1) {
-				textColor(12); printf("■");
-			}
-			else if (TETRIS_LOGO[i] == 2) {
-				textColor(10); printf("■");
-			}
-			else if (TETRIS_LOGO[i] == 3) {
-				textColor(14); printf("■");
-			}
-			else if (TETRIS_LOGO[i] == 4) {
-				textColor(9); printf("■");
-			}
-			else if (TETRIS_LOGO[i] == 5) {
-				textColor(11); printf("■");
-			}
-			else if (TETRIS_LOGO[i] == 6) {
-				textColor(13); printf("■");
-			}
-			else if (TETRIS_LOGO[i] == 7) {
-				textColor(8); printf(" by JH");
-				break;
-			}
-			else {
-				printf("  ");
-			}
-		}
-		printf("\n"); textColor(7); printf("\n\n\n       ");
-		///////////////////////////////////////////////////////////
-
-		///////////////////// 테트리스 메뉴 ///////////////////////
-
-		if (KeyBoard == DOWN && count != 4) {
-			count++;
-		}
-		else if (KeyBoard == UP && count != 1) {
-			count--;
-		}
-		else if (KeyBoard == ESC) {
-			exit(0);
-		}
-		else if (KeyBoard == Enter) {
-			return count;									//  카운트를 반환하고 함수를 종료.
-		}
-
-		//textColor(240);  흰색 배경
-		//textColor(7);		기본
-
-		printf("\t\t\t    ");
-		if (count == 1) {
-			textColor(240);
-		}
-		printf(">>   GAME START   <<\n\n");
-		if (count == 1) {
-			textColor(7);
-		}
-		printf("\t\t\t    ");
-		if (count == 2) {
-			textColor(240);
-		}
-		printf(">>     R A N K    <<\n\n");
-		if (count == 2) {
-			textColor(7);
-		}
-		printf("\t\t\t    ");
-		if (count == 3) {
-			textColor(240);
-		}
-		printf(">>   S Y S T E M  <<\n\n");
-		if (count == 3) {
-			textColor(7);
-		}
-		printf("\t\t\t    ");
-		if (count == 4) {
-			textColor(240);
-		}
-		printf(">>     E X I T    <<\n");
-		if (count == 4) {
-			textColor(7);
-		}
-		KeyBoard = _getch();
-	}
-}
+int Bx, By;			//블럭의 생성위치
+int B_type;			//블록 종류를 저장 
+int B_rotation;		//블록 회전값 저장 
+int B_type_next;	//다음 블록값 저장 
 
 // 보드 생성
 void New_Board(int board[][BOARD_WIDTH]) {
-	int x, y,i,j;
 
 	////////////////////// 새로운 보드판 생성 ////////////////////
 		
 		//memset(변수, 초기화값, 변수크기)
 		memset(board, EMPTY, sizeof(board)*(BOARD_HEIGHT)*(BOARD_WIDTH)); //보드 메모리 초기화   [보드의 모든값을 EMPTY = 0(빈공간) 으로 만듭니다]
-
+		memset(board_cpy, 100, sizeof(int)*(BOARD_HEIGHT)*(BOARD_WIDTH)); //카피보드 메모리 초기화
+		
 		// 블럭 벽 만들기//
-		for (y = 0; y < BOARD_HEIGHT; y++) {
-			for (x = 0; x < BOARD_WIDTH; x++) {
+		for (int y = 0; y < BOARD_HEIGHT; y++) {
+			for (int x = 0; x < BOARD_WIDTH; x++) {
 
 				if (x == 0) { board[y][x] = WALL; }                              //보드의 오른쪽 벽을 만듭니다(ㅣ)
 
@@ -186,9 +53,8 @@ void New_Board(int board[][BOARD_WIDTH]) {
 				if (y == BOARD_HEIGHT - 1) { board[y][x] = WALL; }				  //보드의 아래쪽 벽을 만듭니다(ㅡ)
 			}
 		}
-
 		system("cls");
-	
+
 	///////////////////////////////////////////////////////////
 }
 
@@ -197,13 +63,14 @@ void New_block(int board[][BOARD_WIDTH]) {
 
 	/////////////// NEW BLOCK ///////////////
 	srand((unsigned)time(NULL));  // 난수 생성
+	
 
 	if (Block_flag == True) {
 
 		Bx = (BOARD_WIDTH / 2) - 1;
 		By = 0;
-		B_type_next = rand() % 7; //다음 블럭을 만듦 
 		B_type = B_type_next; //다음블럭값을 가져옴 
+		B_type_next = (rand() % 7); //다음 블럭을 만듦
 		B_rotation = 0;  //회전은 0번으로 가져옴 
 
 		for (int i = 0; i < 4; i++) {
@@ -217,9 +84,10 @@ void New_block(int board[][BOARD_WIDTH]) {
 		Block_flag = False;
 	}
 	/////////////////////////////////////////
+	Draw_Score(board);  //스코어 보드생성
 }
 
-// 보드 그리기
+// 메인보드 그리기
 void Draw_Board(int board[][BOARD_WIDTH]) {
 	int i,j,x,y;
 
@@ -253,11 +121,34 @@ void Draw_Board(int board[][BOARD_WIDTH]) {
 			}
 		}
 	}
-	for (i = 0; i < BOARD_HEIGHT; i++) {
+	// 메인보드의 배열 형태를 복사합니다.
+	for (i = 0; i < BOARD_HEIGHT; i++) {                
 		for (j = 0; j < BOARD_WIDTH; j++) {
 			board_cpy[i][j] = board[i][j];
 		}
 	}
+}
+
+// 스코어보드 그리기
+void Draw_Score(int board[][BOARD_WIDTH]) {
+	Score_Board();
+	////////////////// 다음 블럭을 그립니다./////////////
+	for (int i = 0; i < 4; i++) {
+		gotoxy(39, 6 + i);
+		for (int j = 0; j < 4; j++) {
+
+			if (blocks[B_type_next][0][i][j] == 1)
+			{
+				printf("■");
+			}
+			else
+			{
+				printf("  ");
+			}
+		}
+	}
+	/////////////////////////////////////////////////////
+	
 }
 
 // 충돌을 확인하는 함수 (True  , False)
@@ -273,7 +164,7 @@ int Crush_check(int board[][BOARD_WIDTH], int Bx, int By, int B_rotation) {
 }
 
 // 키입력이 있는지 확인는 함수
-int Check_key(int board[][BOARD_WIDTH]) {
+void Check_key(int board[][BOARD_WIDTH]) {
 	int key = 0; //키값 초기화
 	
 	if (_kbhit()) {				//키 값이 있는 경우
@@ -314,14 +205,12 @@ int Check_key(int board[][BOARD_WIDTH]) {
 		else {
 			switch (key) {
 			case SPACE: //스페이스 키를 눌렀을떄
-				//printf("스페이스바");
 				Space_flag = False;  //스페이스 flag 작동
 				while (Crush_check(board, Bx, By + 1, B_rotation) == True) {
 					Drop_block(board);
-					//Move_block(board, DOWN);
+					Score = Score + 2;
 				}
 				Space_flag = True;
-				return Space_flag;
 
 			case P: //P(대문자) 눌렀을때 
 			case p: //p(소문자) 눌렀을때 
@@ -329,14 +218,14 @@ int Check_key(int board[][BOARD_WIDTH]) {
 				break;
 			case ESC: //ESC눌렀을때 
 				system("cls"); //화면을 지우고 
-				exit(0); //게임종료
+				break;
 			}
 		}
 	}
 	while (_kbhit()) _getch(); //키버퍼를 비움
 }
 
-//블럭을 이동시키는 함수
+// 블럭을 이동시키는 함수
 void Move_block(int board[][BOARD_WIDTH] ,int Dir) {
 	int i, j;
 	
@@ -413,7 +302,7 @@ void Move_block(int board[][BOARD_WIDTH] ,int Dir) {
 	}
 }
 
-//블럭을 한칸 내리는 함수
+// 블럭을 한칸 내리는 함수
 void Drop_block(int board[][BOARD_WIDTH]) {
 	int i, j,a=0;
 
@@ -430,7 +319,6 @@ void Drop_block(int board[][BOARD_WIDTH]) {
 			}
 		}
 		//////////////////////////////////////////
-		//Check_line();
 		Block_flag = True;
 		return;
 	}
@@ -438,36 +326,22 @@ void Drop_block(int board[][BOARD_WIDTH]) {
 	if (Crush_flag && Crush_check(board, Bx, By + 1, B_rotation) == False) { Crush_flag = True;}  // 밑으로 이동이 안되면 Crush_flag 를 켬.
 }
 
-// 블럭의 배열을 보는 함수  // 삭제예정
-void board_Check(int board[][BOARD_WIDTH]) {
-	int y, x;
-	// 배열 보기
-
-	system("cls");
-	//gotoxy(6, 2);
-	for (y = 0; y < BOARD_HEIGHT; y++) {
-		for (x = 0; x < BOARD_WIDTH; x++) {
-			//gotoxy(4 + (x * 2), 2 + y);
-			printf("%d ", board[y][x]);
-		}
-		printf("\n");
-	}
-
-	getc(stdin);
-}
-
+// 라인을 체크하는 함수
 int Check_line(int board[][BOARD_WIDTH]) {
 	int i, j, k, l;
 
 	int block_amount; //한줄의 블록갯수를 저장하는 변수 
 	int combo = 0; //콤보갯수 저장하는 변수 지정및 초기화 
 
+	///////////////////////   라인 체크   ///////////////////////////////
 	for (i = BOARD_HEIGHT - 2; i>3;) { //BOARD_HEIGHT - 2 : 밑쪽벽의 윗칸부터,  i>3 : 천장(3)아래까지 검사 
 		block_amount = 0; //블록갯수 저장 변수 초기화 
 		for (j = 1; j<BOARD_WIDTH - 1; j++) { //벽과 벽사이의 블록갯루를 셈 
 			if (board[i][j]>0) block_amount++;
 		}
 		if (block_amount == BOARD_WIDTH - 2) { //블록이 가득 찬 경우 
+
+			combo++;
 
 			for (k = i; k>1; k--) { //윗줄을 한칸씩 모두 내림(윗줄이 천장이 아닌 경우에만) 
 				for (l = 1; l<BOARD_WIDTH - 1; l++) {
@@ -476,40 +350,32 @@ int Check_line(int board[][BOARD_WIDTH]) {
 					//윗줄이 천장인 경우에는 천장을 한칸 내리면 안되니까 빈칸을 넣음 
 				}
 			}
+			Score += 100;
 		}
 		else i--;
 	}
+
+	//////////////////////  콤보 체크  ////////////////////////////////
+
+	if (combo) { //줄 삭제가 있는 경우 점수와 레벨 목표를 새로 표시함  
+		if (combo > 1) { //2콤보이상인 경우 경우 보너스및 메세지를 게임판에 띄웠다가 지움 
+			Draw_Board(board);
+			gotoxy(6 + (BOARD_HEIGHT / 2), 7); printf("%d COMBO!", combo);
+			Sleep(1000);
+			Score += (combo * Level * 100);
+
+			memset(board_cpy, 100, sizeof(int)*(BOARD_HEIGHT)*(BOARD_WIDTH));	//텍스트를 지우기 위해 main_cpy을 초기화.
+																				//(main_cpy와 main_org가 전부 다르므로 다음번 draw()호출시 게임판 전체를 새로 그리게 됨) 
+		}
+	}
+	
+		/////////////////////////// 게임 오버 체크 ///////////////////////////////////////
 	for (j = 1; j<BOARD_WIDTH - 1; j++) { //벽과 벽사이의 블록갯루를 셈 
 		if (board[3][j] > 0) {
 			Game_over();
 			_getch();
-			return 1;
+			return True;
 		}
 	}
-
-}
-
-// 게임 오버
-void Game_over() {
-	system("cls");
-
-	gotoxy(23, 5); printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤"); //게임오버 메세지 
-	gotoxy(23, 6); printf("▤                              ▤");
-	gotoxy(23, 7); printf("▤  +-----------------------+   ▤");
-	gotoxy(23, 8); printf("▤  |   G A M E  O V E R    |   ▤");
-	gotoxy(23, 9); printf("▤  +-----------------------+   ▤");
-	gotoxy(23, 10); printf("▤                              ▤");
-	gotoxy(23, 11); printf("▤    YOUR SCORE: ...           ▤");
-	gotoxy(23, 12); printf("▤                              ▤");
-	gotoxy(23, 13); printf("▤                              ▤");
-	gotoxy(23, 14); printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤");
-
-	getc(stdin);
-}
-
-// 게임 리셋
-void T_reset() {
-	FILE *FP = fopen("score","rt");
-
-	fclose(FP);
+	return False;
 }

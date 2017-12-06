@@ -1,15 +1,5 @@
-﻿  utile.c
-  system.c
-e:\asio\c언어\tetris\tetris\tetris\테트리스\system.c(171): warning C4101: 'j' :참조되지 않은 지역 변수입니다.
-e:\asio\c언어\tetris\tetris\tetris\테트리스\system.c(171): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
-  main.c
-e:\asio\c언어\tetris\tetris\tetris\테트리스\main.c(30): warning C4013: 'Check_key'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
-e:\asio\c언어\tetris\tetris\tetris\테트리스\main.c(32): warning C4013: 'SPEED'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
-e:\asio\c언어\tetris\tetris\tetris\테트리스\main.c(38): warning C4047: '함수': 'DWORD'의 간접 참조 수준이 'void *'과(와) 다릅니다.
-e:\asio\c언어\tetris\tetris\tetris\테트리스\main.c(38): warning C4024: 'PlaySoundA': 형식 및 실제 매개 변수 3의 형식이 서로 다릅니다.
-e:\asio\c언어\tetris\tetris\tetris\테트리스\main.c(10): warning C4101: 'j' :참조되지 않은 지역 변수입니다.
+﻿  system.c
+  Interface.c
   코드를 생성하고 있습니다...
-e:\asio\c언어\tetris\tetris\tetris\테트리스\system.c(337): warning C4715: 'Check_key': 모든 제어 경로에서 값을 반환하지는 않습니다.
-e:\asio\c언어\tetris\tetris\tetris\테트리스\system.c(490): warning C4715: 'Check_line': 모든 제어 경로에서 값을 반환하지는 않습니다.
   테트리스.vcxproj -> E:\Asio\C언어\Tetris\Tetris\Tetris\Debug\테트리스.exe
   테트리스.vcxproj -> E:\Asio\C언어\Tetris\Tetris\Tetris\Debug\테트리스.pdb (Partial PDB)
