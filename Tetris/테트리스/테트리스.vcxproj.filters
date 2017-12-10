@@ -15,16 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="system.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="utile.c">
+    <ClCompile Include="Game.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Interface.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="System.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Utile.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Rank.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

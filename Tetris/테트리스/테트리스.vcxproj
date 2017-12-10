@@ -18,6 +18,17 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game.c" />
+    <ClCompile Include="Interface.c" />
+    <ClCompile Include="main.c" />
+    <ClCompile Include="Rank.c" />
+    <ClCompile Include="System.c" />
+    <ClCompile Include="Utile.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Header.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{2C9E01AF-BBA6-469A-80D8-3B3F4DC573CE}</ProjectGuid>
@@ -114,15 +125,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Interface.c" />
-    <ClCompile Include="main.c" />
-    <ClCompile Include="system.c" />
-    <ClCompile Include="utile.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Header.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

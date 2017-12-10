@@ -127,14 +127,14 @@ void Score_Board() {
 	gotoxy(x, y + 6); printf("|           | ");
 	gotoxy(x, y + 7); printf("+-- -   - --+ ");
 
-	gotoxy(x-2, y + 14); printf("   △    : Change       | SPACE : Hard Drop");
-	gotoxy(x-2, y + 16); printf("◁    ▷ : Left / Right | P   : Pause");
-	gotoxy(x-2, y + 18); printf("   ▽    : Soft Drop    | ESC  : Quit");
+	gotoxy(x - 2, y + 14); printf("   △    : Change       | SPACE : Hard Drop");
+	gotoxy(x - 2, y + 16); printf("◁    ▷ : Left / Right | P   : Pause");
+	gotoxy(x - 2, y + 18); printf("   ▽    : Soft Drop    | ESC  : Quit");
 }
 
 // 게임 오버 화면
 void Game_over() {
-	
+
 	PlaySound(NULL, NULL, 0); //음악 종료.
 
 	PlaySound("Tetris_Arcade_Music_Loginska.wav", NULL, SND_ASYNC);
@@ -153,25 +153,59 @@ void Game_over() {
 	gotoxy(23, 14); printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤");
 
 	gotoxy(25, 11); printf("   YOUR SCORE : %2d", Score);
-	_getch();
-	//getc(stdin);
+	getc(stdin);
 	PlaySound(NULL, NULL, 0); //음악 종료.
 }
 
-void Pause() {
-	int x = 7, y = 5;
-	gotoxy(x, y + 1); printf("                         ");
-	gotoxy(x, y + 2); printf("+-----------------------+");
-	gotoxy(x, y + 3); printf("|       P A U S E       |");
-	gotoxy(x, y + 4); printf("+-----------------------+");
-	gotoxy(x, y + 5); printf("                         ");
-	gotoxy(x, y + 6); printf("       [ Resuem ]        ");
-	gotoxy(x, y + 7); printf("       [  Exit  ]        ");
-	gotoxy(x, y + 8); printf("                         ");
+//게임 일시정지 화면
+int Pause() {
+	int x = 9, y = 5;
+	int KeyBoard = 0, count = 0;
+	while (1) {
+
+		if (KeyBoard == DOWN && count != 2) {
+			count++;
+			PlaySound("Tetris_tic.wav", NULL, SND_ASYNC);
+		}
+		else if (KeyBoard == UP && count != 1) {
+			count--;
+			PlaySound("Tetris_tic.wav", NULL, SND_ASYNC);
+		}
+		else if (KeyBoard == ESC) {
+			break;
+		}
+		else if (KeyBoard == Enter || KeyBoard == SPACE) {
+			if (count == 1) {
+				system("cls");
+				break;
+			}
+			else if (count == 2) {
+				return 1;
+			}
+		}
+
+		gotoxy(x, y + 1); printf("                     ");
+		gotoxy(x, y + 2); printf("+-------------------+");
+		gotoxy(x, y + 3); printf("|     P A U S E     |");
+		gotoxy(x, y + 4); printf("+-------------------+");
+		gotoxy(x, y + 5); printf("                     ");
+		if (count == 1) { textColor(240); }
+		gotoxy(x + 5, y + 6); printf("[ Resuem ]");
+		if (count == 1) { textColor(7); }
+		if (count == 2) { textColor(240); }
+		gotoxy(x + 5, y + 7); printf("[  Exit  ]");
+		if (count == 2) { textColor(7); }
+		gotoxy(x, y + 8); printf("                     ");
+		KeyBoard = _getch();
+	}
+	return 0;
 }
 
 // 랭킹 화면
 void Ranking() {
+	FILE *Ranking = fopen("Rankin.txt", "r+");
+
 	system("cls");
-	printf("Ranking");
+	gotoxy(10, 3); printf("[1위]		박정현		5000		2017-12-10");
+	gotoxy(10, 5); printf("[2위]		박정현		15000		2017-12-10");
 }
