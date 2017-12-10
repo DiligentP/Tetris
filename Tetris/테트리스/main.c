@@ -6,7 +6,7 @@ int board[BOARD_HEIGHT][BOARD_WIDTH] = { EMPTY, };   //// 현재 사용중인 보드판  
 
 int main() {
 
-	int Count,C;         // T_START_Display(); 함수에서 반환한 반환값
+	int Count,C,Key;         // T_START_Display(); 함수에서 반환한 반환값
 	extern int Speed, Space_flag;
 
 	Cursor(0);         // 커서 숨기기 : 0 숨기기 1 보이기
@@ -28,12 +28,12 @@ int main() {
 				New_block(board);		// 새로운 블럭을 만듭니다.
 
 				for (int i = 0; i < 5; i++) {
-					Check_key(board);    // 초당 5번의 입력을 받고 명령을 수행합니다.
-					
+					Key = Check_key(board);    // 초당 5번의 입력을 받고 명령을 수행합니다.
+
 					if (Space_flag == True) { // 스페이스바를 누르면 바로 다음 블럭을 생성합니다.
 						Space_flag = False;
-						break; 
-					}  
+						break;
+					}
 					Draw_Board(board);	 // 보드를 그립니다.
 					Sleep(Speed);
 				}
@@ -46,13 +46,12 @@ int main() {
 			break;
 
 		case RANK:
-			gotoxy(3 + (BOARD_HEIGHT / 2) - 1, 7); printf("COMBO!");
-			printf("\t\t\t랭킹은 현재 준비중입니다.\n\n");
+			Ranking();
 			getc(stdin);
 			break;
 		
 		case SYSTEM:
-			printf("\t\t\t시스템은 현재 준비중입니다.\n\n");
+			Pause();
 			getc(stdin);
 			break;
 		

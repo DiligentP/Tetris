@@ -157,3 +157,21 @@ void Game_over() {
 	//getc(stdin);
 	PlaySound(NULL, NULL, 0); //À½¾Ç Á¾·á.
 }
+
+void Pause() {
+	int x = 7, y = 5;
+	gotoxy(x, y + 1); printf("                         ");
+	gotoxy(x, y + 2); printf("+-----------------------+");
+	gotoxy(x, y + 3); printf("|       P A U S E       |");
+	gotoxy(x, y + 4); printf("+-----------------------+");
+	gotoxy(x, y + 5); printf("                         ");
+	gotoxy(x, y + 6); printf("       [ Resuem ]        ");
+	gotoxy(x, y + 7); printf("       [  Exit  ]        ");
+	gotoxy(x, y + 8); printf("                         ");
+}
+
+// ·©Å· È­¸é
+void Ranking() {
+	system("cls");
+	printf("Ranking");
+}

@@ -164,7 +164,7 @@ int Crush_check(int board[][BOARD_WIDTH], int Bx, int By, int B_rotation) {
 }
 
 // 키입력이 있는지 확인는 함수
-void Check_key(int board[][BOARD_WIDTH]) {
+int Check_key(int board[][BOARD_WIDTH]) {
 	int key = 0; //키값 초기화
 	
 	if (_kbhit()) {				//키 값이 있는 경우
@@ -211,14 +211,16 @@ void Check_key(int board[][BOARD_WIDTH]) {
 					Score = Score + 2;
 				}
 				Space_flag = True;
+				break;
 
 			case P: //P(대문자) 눌렀을때 
 			case p: //p(소문자) 눌렀을때 
-				//pause(); //일시정지 
+				Pause(); //일시정지 
+				_getch();
 				break;
 			case ESC: //ESC눌렀을때 
-				system("cls"); //화면을 지우고 
-				break;
+				PlaySound(NULL, NULL, 0); //음악 종료.
+				return ESC;
 			}
 		}
 	}
@@ -315,6 +317,7 @@ void Drop_block(int board[][BOARD_WIDTH]) {
 			for (j = 0; j < BOARD_WIDTH; j++) {
 				if (board[i][j] == ACTIVE_BLOCK) {
 					board[i][j] = INACTIVE_BLOCK;
+					Score += 1;
 				}
 			}
 		}

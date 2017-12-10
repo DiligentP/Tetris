@@ -38,7 +38,11 @@ int START_Display();	 // 테트리스 처음 시작 화면
 
 void Score_Board();		 // 테트리스 스코어 화면 (점수, 다음블럭, 게임방향키 등.)
 
+void Pause();			 // 일시정지 함수
+
 void Game_over();		 // 게임 오버 화면
+
+void Ranking();			 // 게임 랭킹 화면
 
 ////////////////  SYSTEM.C   /////////////////////////
 void New_Board(int board[][BOARD_WIDTH]);									// 새로운 보드를 생성하는 하는함수
@@ -57,7 +61,7 @@ int Crush_check(int board[][BOARD_WIDTH], int Bx, int By, int B_rotation);	// 블
 
 int Check_line(int board[][BOARD_WIDTH]);									// 라인이 완성 됬는지 확인하는 함수
 
-void Check_key(int board[][BOARD_WIDTH]);									// 키 입력이 있는지 확인하는 함수
+int Check_key(int board[][BOARD_WIDTH]);									// 키 입력이 있는지 확인하는 함수
 
 ////////////////  UTILE.C   /////////////////////////
 void textColor(int color_number);	// 글자 색깔 바꾸는 함수
