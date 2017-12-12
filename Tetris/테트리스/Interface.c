@@ -1,7 +1,6 @@
 #include "Header.h"
 
 extern int Score;
-int flag = True;
 
 // 테트리스 맨 처음 시작 타이틀 화면 
 void START_Display() {
@@ -39,13 +38,14 @@ void START_Display() {
 int Draw_Login_menu(int count) {
 	int KeyBoard = 0;
 
+	system("cls");
+
+	START_Display();
+
 	while (1) {
-		system("cls");
-
-		START_Display();
-
 		if (KeyBoard == RIGHT) 
 		{ 
+			PlaySound("Tetris_tic.wav", NULL, SND_ASYNC);
 			count = 1;
 			return count;
 		}
@@ -58,13 +58,12 @@ int Draw_Login_menu(int count) {
 			PlaySound("Tetris_tic.wav", NULL, SND_ASYNC);
 			count--;
 		}
-		else if (KeyBoard == Enter || KeyBoard == SPACE) {
-
-			flag = True;
+		
+		if (KeyBoard == Enter || KeyBoard == SPACE) {
 			return count;
 		}
 
-		gotoxy(36, 11);  printf("● ○\n\n%d",count);
+		gotoxy(36, 11);  printf("● ○\n\n");
 		printf("\t\t\t    ");
 		if (count == 5) { textColor(240); }
 		printf(">>     MY INFO    <<\n\n");
@@ -97,6 +96,8 @@ void Draw_input_Login() {
 	printf("[Password] :");
 
 	printf("\n\t\t└------------------------------------┘");
+
+	printf("\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t[Teb] 칸이동  [ESC] 이전화면");
 }
 
 // 테트리스 메인 메뉴 화면
@@ -104,20 +105,18 @@ int Main_Menu() {
 	int KeyBoard = 0; int count = 0; //  KeyBoard : 키보드 값을 받는 변수 , count : UP(72) = +1, DOWN(80) = -1
 
 	///////////////////// 테트리스 메뉴 ///////////////////////
+	system("cls");
+
+	START_Display();
+
 	while (1) 
-	{
-		system("cls");
-
-		START_Display();
-
+	{	
 		if (KeyBoard == LEFT) {
-				
+			PlaySound("Tetris_tic.wav", NULL, SND_ASYNC);
 			count = 5;
 			count = Draw_Login_menu(count);
-
-			if (flag==True) {
-				flag = False;
-				break;
+			if (count > 4) {
+				return count;
 			}
 		}
 
@@ -138,7 +137,7 @@ int Main_Menu() {
 
 		//textColor(240);  흰색 배경
 		//textColor(7);		기본
-		gotoxy(36, 11); printf("○ ●\n\n%d",count);
+		gotoxy(36, 11); printf("○ ●\n\n");
 		printf("\t\t\t    ");
 		if (count == 1) { textColor(240); }
 		printf(">>   GAME START   <<\n\n");
@@ -157,7 +156,6 @@ int Main_Menu() {
 		if (count == 4) { textColor(7); }
 		KeyBoard = _getch();
 	}
-	return count;
 }
 
 // 스코어보드 화면
@@ -195,10 +193,6 @@ void Draw_Gameover() {
 	gotoxy(23, 12); printf("▤                              ▤");
 	gotoxy(23, 13); printf("▤                              ▤");
 	gotoxy(23, 14); printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤");
-
-	gotoxy(25, 11); printf("   YOUR SCORE : %2d", Score);
-	getc(stdin);
-	PlaySound(NULL, NULL, 0); //음악 종료.
 }
 
 //게임 일시정지 화면

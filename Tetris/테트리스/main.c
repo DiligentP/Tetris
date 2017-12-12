@@ -29,10 +29,10 @@ int main()
 		case EXIT:
 			system("cls");							// 게임 종료
 			return 0;
-		default:
-			Login_main(Count);
-			break;
 
+		default:
+			Login_main(Count);						// 반환된 카운트 함수가 5이상이면 로그인 함수를 리턴합니다.
+			break;
 		}
 	}
 }

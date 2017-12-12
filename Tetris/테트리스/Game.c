@@ -30,9 +30,10 @@ int B_type;			//블록 종류를 저장
 int B_rotation;		//블록 회전값 저장 
 int B_type_next;	//다음 블록값 저장 
 
+int Level = 1;		// 게임의 레벨에 따라서 게임속도와 점수가 배율이 올라감
 int Speed = 100;	// 초당 5번의 입력을 받기때문에 100 이지만 실제로는 500임.(500 = 0.5초)
 int Score = 0;		// 게임 점수
-int Level = 1;		// 게임의 레벨에 따라서 게임속도와 점수가 배율이 올라감
+
 
 extern info Player[10];	// 랭킹에 올릴 10명의 데이터 공간
 extern int Player_count;//랭킹에 올라간 플레이어의 카운터
@@ -73,13 +74,21 @@ void Game_main()
 
 //게임 리셋 하는 함수
 void Game_Reset() {
-	New_Board();		// 새로운 보드를 만듭니다.
 
 	// 블럭 데이터 초기화
+	srand((unsigned)time(NULL));  // 난수 생성
+
 	Score = 0;
 	B_type = 0;
 	B_rotation = 0;
 	B_type_next = 0;
+	Bx = (BOARD_WIDTH / 2) - 1;
+	By = 0;
+
+	New_Board();		// 새로운 보드를 만듭니다.
+	New_block();		// 새로운 블럭을 만듭니다.
+
+	
 }
 
 // 보드 생성
@@ -425,6 +434,11 @@ int Check_line() {
 	for (j = 1; j<BOARD_WIDTH - 1; j++) { //벽과 벽사이의 블록갯루를 셈 
 		if (board[3][j] > 0) {
 			Draw_Gameover();
+
+			gotoxy(25, 11); printf("   YOUR SCORE : %2d", Score);
+			getc(stdin);
+			PlaySound(NULL, NULL, 0); //음악 종료.
+
 			return True;
 		}
 	}
@@ -435,6 +449,9 @@ int Check_line() {
 int Pause() {
 	int KeyBoard = 0, count = 0;
 	while (1) {
+		PlaySound(NULL, NULL, 0); //음악 종료.
+
+		Draw_Pause(count);
 
 		if (KeyBoard == DOWN && count != 2) {
 			count++;
@@ -456,8 +473,6 @@ int Pause() {
 				return 1;
 			}
 		}
-
-		Draw_Pause(count);
 		
 		KeyBoard = _getch();
 	}

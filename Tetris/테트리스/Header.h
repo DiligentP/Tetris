@@ -44,14 +44,18 @@ typedef struct information {
 ///////////////////  Login.c        ///////////////////
 void Login_main(int Count);								// 로그인 메인 함수
 
-int Login();											// 로그인 함수
+void Login();											// 로그인 함수
 
 int input_Login(int dir);								// 아이디 패스워드 입력함수
+
+int check_Login();										// 아이디 패스워드가 맞는지 확인 하는 함수
 
 //////////////////   Interface.c   ///////////////////
 void START_Display();									// 테트리스 처음 시작 타이틀 화면
 
-int Draw_Login_menu();									// 테트리스 로그인 화면
+int Draw_Login_menu(int count);							// 테트리스 로그인 화면
+
+void Draw_input_Login();								// 로그인 입력 화면
 
 void Draw_Score();										// 테트리스 스코어 화면 (점수, 다음블럭, 게임방향키 등.)
 
