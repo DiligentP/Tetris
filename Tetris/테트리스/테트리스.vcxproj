@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Game.c" />
     <ClCompile Include="Interface.c" />
+    <ClCompile Include="Login.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Rank.c" />
     <ClCompile Include="System.c" />

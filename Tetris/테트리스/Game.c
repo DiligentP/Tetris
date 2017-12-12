@@ -4,7 +4,7 @@ int board[BOARD_HEIGHT][BOARD_WIDTH] = { EMPTY, };   //// 현재 사용중인 테트리스
 int board_cpy[BOARD_HEIGHT][BOARD_WIDTH] = { 100, }; //// 메인보드를 카피한 보드판             100        //초기값  //100으로 준 이유는 메인보드와 겹치는 배열이 없게 하기 위함임.
 
 ////////////////////////// 테트리스 블럭 배열 //////////////////////////////////
-int blocks[7][4][4][4] = {
+const int blocks[7][4][4][4] = {
 	{ { 0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0 },{ 0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0 },
 	{ 0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0 },{ 0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0 } },
 	{ { 0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0 },{ 0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0 },
@@ -30,10 +30,14 @@ int B_type;			//블록 종류를 저장
 int B_rotation;		//블록 회전값 저장 
 int B_type_next;	//다음 블록값 저장 
 
-int Speed = 100;   // 초당 5번의 입력을 받기때문에 100 이지만 실제로는 500임.
-int Score = 0;
-int Level = 1;
+int Speed = 100;	// 초당 5번의 입력을 받기때문에 100 이지만 실제로는 500임.(500 = 0.5초)
+int Score = 0;		// 게임 점수
+int Level = 1;		// 게임의 레벨에 따라서 게임속도와 점수가 배율이 올라감
 
+extern info Player[10];	// 랭킹에 올릴 10명의 데이터 공간
+extern int Player_count;//랭킹에 올라간 플레이어의 카운터
+
+//게임 메인 함수
 void Game_main()
 {
 	int Key, C;
@@ -45,7 +49,7 @@ void Game_main()
 	while (1)
 	{
 		New_block();		// 새로운 블럭을 만듭니다.
-		Draw_Score();  //스코어 보드생성
+		Score_Board();		//스코어 보드생성
 
 		for (int i = 0; i < 5; i++)
 		{
@@ -173,10 +177,10 @@ void Draw_Board() {
 	}
 }
 
-// 스코어보드 그리기
-void Draw_Score() {
-	Score_Board();		// 스코어보드 생성
-						////////////////// 다음 블럭을 그립니다./////////////
+// 스코어보드 생성
+void Score_Board() {
+	Draw_Score();		//스코어보드 그리기
+	////////////////// 다음 블럭을 그립니다./////////////
 	for (int i = 0; i < 4; i++) {
 		gotoxy(39, 6 + i);
 		for (int j = 0; j < 4; j++) {
@@ -355,8 +359,6 @@ void Move_block(int Dir) {
 void Drop_block() {
 	int i, j, a = 0;
 
-	//if (Crush_flag && Crush_check(board, Bx, By + 1, B_rotation) == True) { Crush_flag = False; }  // 밑이 비어있으면 Crush_flag 를 끔.
-
 	if (Crush_flag && Crush_check(Bx, By + 1, B_rotation) == False) // 밑이 비어있지 않으면 
 	{
 		///////////////////////////////////////////          // 조작중인 블럭을 굳힘.
@@ -422,9 +424,42 @@ int Check_line() {
 	/////////////////////////// 게임 오버 체크 ///////////////////////////////////////
 	for (j = 1; j<BOARD_WIDTH - 1; j++) { //벽과 벽사이의 블록갯루를 셈 
 		if (board[3][j] > 0) {
-			Game_over();
+			Draw_Gameover();
 			return True;
 		}
 	}
 	return False;
+}
+
+// 게임을 일시정지 하는 함수
+int Pause() {
+	int KeyBoard = 0, count = 0;
+	while (1) {
+
+		if (KeyBoard == DOWN && count != 2) {
+			count++;
+			PlaySound("Tetris_tic.wav", NULL, SND_ASYNC);
+		}
+		else if (KeyBoard == UP && count != 1) {
+			count--;
+			PlaySound("Tetris_tic.wav", NULL, SND_ASYNC);
+		}
+		else if (KeyBoard == ESC) {
+			break;
+		}
+		else if (KeyBoard == Enter || KeyBoard == SPACE) {
+			if (count == 1) {
+				system("cls");
+				break;
+			}
+			else if (count == 2) {
+				return 1;
+			}
+		}
+
+		Draw_Pause(count);
+		
+		KeyBoard = _getch();
+	}
+	return 0;
 }

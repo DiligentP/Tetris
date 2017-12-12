@@ -8,6 +8,15 @@
 
 #pragma comment(lib,"winmm")// PlaySound 함수를 호출하기 위한 전처리기
 
+typedef struct information {
+	char Id[20];		//아이디
+	char Password[20];	//패스워드
+	char Name[20];		// 이름
+	char Time[20];		// 플레이 시간
+	char Score[20];		// 점수
+	char Date[20];		// 플레이 날짜
+}info;
+
 //////////////// Macro ////////////////////
 #define LEFT 75			//좌로 이동
 #define RIGHT 77		//우로 이동 
@@ -18,6 +27,7 @@
 #define P 80			//일시정지
 #define ESC 27			//게임종료
 #define Enter 13		//엔터
+#define Teb 9			//탭
 
 #define ACTIVE_BLOCK -2				// 게임판배열에 저장될 이동가능한 블록의 상태들 
 #define CEILLING -1					// 블록이 이동할 수 있는 공간은 0 또는 음의 정수로 표현 
@@ -31,26 +41,36 @@
 #define BOARD_HEIGHT 20 // ┃개수 (세로)  //보드판
 #define BOARD_WIDTH 13	// ━개수 (가로)
 
+///////////////////  Login.c        ///////////////////
+void Login_main(int Count);								// 로그인 메인 함수
+
+int Login();											// 로그인 함수
+
+int input_Login(int dir);								// 아이디 패스워드 입력함수
 
 //////////////////   Interface.c   ///////////////////
-int START_Display();									// 테트리스 처음 시작 화면
+void START_Display();									// 테트리스 처음 시작 타이틀 화면
 
-void Score_Board();										// 테트리스 스코어 화면 (점수, 다음블럭, 게임방향키 등.)
+int Draw_Login_menu();									// 테트리스 로그인 화면
 
-int Pause();											// 일시정지 함수
+void Draw_Score();										// 테트리스 스코어 화면 (점수, 다음블럭, 게임방향키 등.)
 
-void Game_over();										// 게임 오버 화면
+void Draw_Pause(int count);								// 게임 일시정지 화면
 
-void Ranking();											// 게임 랭킹 화면
+void Draw_Gameover();									// 게임 오버 화면
+
+void Draw_Rank();										// 게임 랭킹 화면
+
+int Main_Menu();										// 게임 메인 메뉴 화면
 
 ///////////////////  Game.c        ///////////////////
 void Game_main();										// 게임 메인 함수
 
 void Game_Reset();										// 게임 리셋 함수
 
-void New_block();										// 새로운 블럭을 만드는 함수
+void New_block();										// 새로운 블럭을 생성하는 함수
 
-void Draw_Score();										// 스코어 보드를 그리는 함수
+void Score_Board();										// 스코어 보드를 생성하는 함수
 
 void Draw_Board();										// 메인 보드를 그리는 함수
 
@@ -65,6 +85,8 @@ int Check_line();										// 라인이 완성 됬는지 확인하는 함수
 int Check_key();										// 키 입력이 있는지 확인하는 함수
 
 int Crush_check(int Bx, int By, int B_rotation);		// 블럭이 벽과 충돌하는지 확인 하는 함수
+
+int Pause();											// 게임을 일시 정지하는 함수
 
 ///////////////////  Rank.c        ///////////////////
 void Rank_main();										// 랭킹 메인 함수
