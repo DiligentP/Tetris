@@ -71,7 +71,6 @@ void Login() {
 	}
 }
 
-
 int input_Login(int dir) {			// (dir )	1 = 아이디 2 = 패스워드
 	int Key = 0;
 	int i = 0 , j = 0;
