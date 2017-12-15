@@ -1,3 +1,5 @@
-﻿  Game.c
+﻿  Login.c
+e:\asio\c언어\tetris\tetris\tetris\테트리스\login.c(78): warning C4013: 'input_signUp'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+e:\asio\c언어\tetris\tetris\tetris\테트리스\login.c(165): warning C4716: 'input_signUp': 값을 반환해야 합니다.
   테트리스.vcxproj -> E:\Asio\C언어\Tetris\Tetris\Tetris\Debug\테트리스.exe
   테트리스.vcxproj -> E:\Asio\C언어\Tetris\Tetris\Tetris\Debug\테트리스.pdb (Partial PDB)

@@ -2,14 +2,16 @@
 
 info Palyer[100];		// 최대 100명까지 데이터를 생성가능함.
 
-char Id_s[20], Ps_s[20];	// 입력받은 아이디와 패스워드를 저장할 임시 공간 , 저장되어있는 플레이어의 데이터와 비교함.
+char Id_s[20], Ps_s[20], Name_s[20];	// 입력받은 아이디와 패스워드를 저장할 임시 공간 , 저장되어있는 플레이어의 데이터와 비교함.
 
-char Id[20] = "1234", Ps[20] = "1234";
+
+
+//char Id[20] = "1234", Ps[20] = "1234";
 
 void Login_main(int Count) {
 	while (1) 
 	{
-		enum login_menu { INFO = 5, LOGIN, SIGNIN, EXIT };
+		enum login_menu { INFO = 5, LOGIN, SIGNUP, EXIT };
 
 		switch (Count) 
 		{
@@ -20,8 +22,8 @@ void Login_main(int Count) {
 		case LOGIN:
 			Login();
 			break;
-		case SIGNIN:
-			printf("회원가입");
+		case SIGNUP:
+			SignUp();
 			break;
 		case EXIT:
 			system("cls");
@@ -69,6 +71,15 @@ void Login() {
 		printf("아이디 패스워드는 15자 내외입니다.");
 		while (_getch() != '\r') {}   // 바로 넘어가는 경우를 방지하기위함임
 	}
+}
+
+void SignUp() {
+	
+	system("cls");
+
+	input_signUp();
+
+	_getch();
 }
 
 int input_Login(int dir) {			// (dir )	1 = 아이디 2 = 패스워드
@@ -145,4 +156,14 @@ int check_Login() {
 	{
 		return False;
 	}
+}
+
+int input_signUp() {
+	printf("\n\n\n\n\t\tSIGN UP\n\n");
+	printf("\t\tID 입력 : ");
+	scanf("%s",Id_s);
+	printf("\n\n\t\tPASSWORD 입력 : ");
+	scanf("%s",Ps_s);
+	printf("\n\n\t\tName 입력 :");
+	scanf("%s",Name_s);
 }

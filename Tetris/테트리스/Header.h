@@ -46,6 +46,8 @@ void Login_main(int Count);								// 로그인 메인 함수
 
 void Login();											// 로그인 함수
 
+void SignUp();											// 회원가입 함수
+
 int input_Login(int dir);								// 아이디 패스워드 입력함수
 
 int check_Login();										// 아이디 패스워드가 맞는지 확인 하는 함수

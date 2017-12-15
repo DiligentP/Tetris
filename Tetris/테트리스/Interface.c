@@ -74,7 +74,7 @@ int Draw_Login_menu(int count) {
 		if (count == 6) { textColor(7); }
 		printf("\t\t\t    ");
 		if (count == 7) { textColor(240); }
-		printf(">>   S I G N I N  <<\n\n");
+		printf(">>   S I G N U P  <<\n\n");
 		if (count == 7) { textColor(7); }
 		printf("\t\t\t    ");
 		if (count == 8) { textColor(240); }
