@@ -50,7 +50,13 @@ void SignUp();											// 회원가입 함수
 
 int input_Login(int dir);								// 아이디 패스워드 입력함수
 
+void input_signUp();									// 회원가입 함수
+
 int check_Login();										// 아이디 패스워드가 맞는지 확인 하는 함수
+
+void Info_data_read();									// 회원정보를 파일출력하는 함수  // 불러오기
+
+void Info_data_save();									// 회원정보를 파일입력하는 함수  // 저장하기
 
 //////////////////   Interface.c   ///////////////////
 void START_Display();									// 테트리스 처음 시작 타이틀 화면

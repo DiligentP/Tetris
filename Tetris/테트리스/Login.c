@@ -3,12 +3,12 @@
 info Palyer[100];		// 최대 100명까지 데이터를 생성가능함.
 
 char Id_s[20], Ps_s[20], Name_s[20];	// 입력받은 아이디와 패스워드를 저장할 임시 공간 , 저장되어있는 플레이어의 데이터와 비교함.
-
-
-
-//char Id[20] = "1234", Ps[20] = "1234";
+char Id[20] = "1234", Ps[20] = "1234";
 
 void Login_main(int Count) {
+
+	Info_data_read();
+
 	while (1) 
 	{
 		enum login_menu { INFO = 5, LOGIN, SIGNUP, EXIT };
@@ -31,6 +31,20 @@ void Login_main(int Count) {
 		}
 		break;
 	}
+
+	Info_data_save();
+}
+
+void Info_data_read() {
+	FILE *data = fopen("Info_data.txt", "w+");
+
+	//fscanf(data,);
+	fclose(data);
+}
+void Info_data_save() {
+	FILE *data = fopen("Info_data.txt", "w+");
+
+	fclose(data);
 }
 
 void Login() {
@@ -158,7 +172,7 @@ int check_Login() {
 	}
 }
 
-int input_signUp() {
+void input_signUp() {
 	printf("\n\n\n\n\t\tSIGN UP\n\n");
 	printf("\t\tID 입력 : ");
 	scanf("%s",Id_s);
