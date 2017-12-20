@@ -1,6 +1,7 @@
 #include "Header.h"
 
 extern int Score;
+extern int Player_num;
 
 // 테트리스 맨 처음 시작 타이틀 화면 
 void START_Display() {

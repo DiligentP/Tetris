@@ -58,6 +58,8 @@ void Info_data_read();									// 회원정보를 파일출력하는 함수  // 불러오기
 
 void Info_data_save();									// 회원정보를 파일입력하는 함수  // 저장하기
 
+void list();											// 회원 목록을 보는 함수.
+
 //////////////////   Interface.c   ///////////////////
 void START_Display();									// 테트리스 처음 시작 타이틀 화면
 
@@ -112,3 +114,5 @@ void textColor(int color_number);						// 글자 색깔 바꾸는 함수
 void gotoxy(int x, int y);								// 커서 위치를 정하는 함수
 
 void Cursor(int n);										// 커서 숨기는 함수
+
+void Exit();											// 프로그램 종료하는 함수 (데이터 파일 세이브가 포함되어 있음)

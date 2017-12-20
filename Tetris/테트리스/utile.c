@@ -24,3 +24,8 @@ void Cursor(int n)
 
 	SetConsoleCursorInfo(hConsole, &ConsoleCursor);
 }
+
+void Exit() {
+	Info_data_save();
+	exit(0);
+}

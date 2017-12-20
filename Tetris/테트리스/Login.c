@@ -1,9 +1,10 @@
 #include "Header.h"
 
-info Palyer[100];		// 최대 100명까지 데이터를 생성가능함.
+info Player[100];		// 최대 100명까지 데이터를 생성가능함.
+int Player_count;		// 파일로 받은 플레이어의 수를 담는 변수
+int Player_num;			// 로그인한 플레이어의 구조체 배열 넘버를 저장함.  Player[Player_num] == 로그인한 회원의 정보
 
 char Id_s[20], Ps_s[20], Name_s[20];	// 입력받은 아이디와 패스워드를 저장할 임시 공간 , 저장되어있는 플레이어의 데이터와 비교함.
-char Id[20] = "1234", Ps[20] = "1234";
 
 void Login_main(int Count) {
 
@@ -17,7 +18,8 @@ void Login_main(int Count) {
 		{
 		case INFO:
 			system("cls");
-			printf("내 정보");
+			list();
+			_getch();
 			break;
 		case LOGIN:
 			Login();
@@ -27,7 +29,7 @@ void Login_main(int Count) {
 			break;
 		case EXIT:
 			system("cls");
-			exit(0);
+			Exit();
 		}
 		break;
 	}
@@ -35,18 +37,45 @@ void Login_main(int Count) {
 	Info_data_save();
 }
 
-void Info_data_read() {
-	FILE *data = fopen("Info_data.txt", "w+");
 
-	//fscanf(data,);
+// 파일 입출력  -  데이터를 불러오고 저장하는 기능을 하는 함수.
+void Info_data_read() {
+
+	int i = 0;
+
+	FILE *data = fopen("Info_data.txt", "r+");
+
+	if (data == NULL)
+	{
+		system("cls");
+		printf("\n\n\t\t데이터파일을 생성하는 중입니다.");
+		for (int i = 0; i < 3; i++) { Sleep(500); printf("."); }
+		FILE *re = fopen("Info_data.txt", "w");							// 데이터파일을 생성함.
+		fclose(re);
+		return;
+	}
+
+	while(!feof(data)){  //데이터가 파일의 끝에 도달할떄 까지.  *feof 반환값 : 파일끝O [1~] 파일끝X [0]
+		
+		fscanf(data, "%s%s%s%s\n", Player[i].Name, Player[i].Id, Player[i].Password, Player[i].Score);
+		i++;
+	}
+
+	Player_count = i;
+
 	fclose(data);
 }
 void Info_data_save() {
 	FILE *data = fopen("Info_data.txt", "w+");
 
+	for (int j = 0; j < Player_count; j++) {
+		fprintf(data, "%s %s %s %s\n", Player[j].Name, Player[j].Id, Player[j].Password, Player[j].Score);
+	}
+
 	fclose(data);
 }
 
+// 로그인의 기능 을 하는 함수.
 void Login() {
 	int KeyBoard = 0; int count = 1;
 	int T=0;
@@ -87,22 +116,14 @@ void Login() {
 	}
 }
 
-void SignUp() {
-	
-	system("cls");
-
-	input_signUp();
-
-	_getch();
-}
-
+// 로그인의 출력 부분
 int input_Login(int dir) {			// (dir )	1 = 아이디 2 = 패스워드
 	int Key = 0;
-	int i = 0 , j = 0;
+	int i = 0, j = 0;
 
 	if (dir == 1) // 아이디
 	{
-		gotoxy(30,7);
+		gotoxy(30, 7);
 		while ((Id_s[i] = _getch()) != '\t')
 		{
 			if (Id_s[i] == '\b') {    // 또 받으면 안 됨
@@ -128,7 +149,7 @@ int input_Login(int dir) {			// (dir )	1 = 아이디 2 = 패스워드
 
 	else if (dir == 2) // 패스워드
 	{
-		gotoxy(30,11);
+		gotoxy(30, 11);
 		while ((Ps_s[j] = _getch()) != '\r')
 		{
 			if (Ps_s[j] == '\b') {    // 또 받으면 안 됨
@@ -161,23 +182,53 @@ int input_Login(int dir) {			// (dir )	1 = 아이디 2 = 패스워드
 	return False;
 }
 
-int check_Login() {
-	if (!strcmp(Id_s, Id) && (!strcmp(Ps_s, Ps)))
-	{
-		return True;
-	}
-	else
-	{
-		return False;
-	}
+// 회원가입 기능을 하는 함수.
+void SignUp() {
+	
+	system("cls");
+
+	input_signUp();
+
+	printf("\n\t\t회원 가입이 되었습니다.");
+
+	_getch();
 }
 
+// 회원가입의 출력부분
 void input_signUp() {
+	int i = 0;
+	i = Player_count;
+
 	printf("\n\n\n\n\t\tSIGN UP\n\n");
 	printf("\t\tID 입력 : ");
-	scanf("%s",Id_s);
+	scanf("%s", Player[i].Id);
 	printf("\n\n\t\tPASSWORD 입력 : ");
-	scanf("%s",Ps_s);
-	printf("\n\n\t\tName 입력 :");
-	scanf("%s",Name_s);
+	scanf("%s", Player[i].Password);
+	printf("\n\n\t\t이름 입력 :");
+	scanf("%s", Player[i].Name);
+	strcpy(Player[i].Score, "0");
+	i++;
+
+	Player_count = i;
+}
+
+// 로그인 할때, 회원의 아이디와 패스워드를 검사하는 함수.
+int check_Login() {
+
+	for (int i = 0; i < Player_count; i++) {
+
+		if (!strcmp(Id_s, Player[i].Id) && (!strcmp(Ps_s, Player[i].Password)))
+		{
+			Player_num = i;   // 플레이어 배열의 넘버를 저장함.
+			return True;
+		}
+	}
+	return False;
+}
+
+// 회원 목록
+void list() {
+	for (int j = 0; j < Player_count; j++) {
+		printf("%s %s %s %s\n", Player[j].Name, Player[j].Id, Player[j].Password, Player[j].Score);
+	}
 }
