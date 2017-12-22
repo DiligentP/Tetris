@@ -13,7 +13,7 @@ typedef struct information {
 	char Password[20];	//패스워드
 	char Name[20];		// 이름
 	char Time[20];		// 플레이 시간
-	char Score[20];		// 점수
+	int Score;		// 점수
 	char Date[20];		// 플레이 날짜
 }info;
 
@@ -30,7 +30,7 @@ typedef struct information {
 #define Teb 9			//탭
 
 #define ACTIVE_BLOCK -2				// 게임판배열에 저장될 이동가능한 블록의 상태들 
-#define CEILLING -1					// 블록이 이동할 수 있는 공간은 0 또는 음의 정수로 표현 
+#define CEILING -1					// 블록이 이동할 수 있는 공간은 0 또는 음의 정수로 표현
 #define EMPTY 0						// 블록이 이동할 수 없는 공간은 양수로 표현 
 #define WALL 1						// 블록이 이동할 수 없는 벽
 #define INACTIVE_BLOCK 2			// 이동이 완료된 블록값
@@ -63,7 +63,7 @@ void list();											// 회원 목록을 보는 함수.
 //////////////////   Interface.c   ///////////////////
 void START_Display();									// 테트리스 처음 시작 타이틀 화면
 
-int Draw_Login_menu(int count);							// 테트리스 로그인 화면
+int Draw_Login_menu(int count);							// 테트리스 로그인 메뉴 화면
 
 void Draw_input_Login();								// 로그인 입력 화면
 
@@ -74,6 +74,8 @@ void Draw_Pause(int count);								// 게임 일시정지 화면
 void Draw_Gameover();									// 게임 오버 화면
 
 void Draw_Rank();										// 게임 랭킹 화면
+
+void Draw_myinfo();										// 나의 정보 확인 화면
 
 int Main_Menu();										// 게임 메인 메뉴 화면
 
@@ -104,6 +106,10 @@ int Pause();											// 게임을 일시 정지하는 함수
 
 ///////////////////  Rank.c        ///////////////////
 void Rank_main();										// 랭킹 메인 함수
+
+void Rank_Load();										// 랭킹 불러오는함수
+
+void Rank_Save();										// 랭킹 저장하는 함수
 
 ///////////////////  System.c      ///////////////////
 void System_main();										// 시스템 메인 함수

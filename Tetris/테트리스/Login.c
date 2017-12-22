@@ -2,9 +2,9 @@
 
 info Player[100];		// 최대 100명까지 데이터를 생성가능함.
 int Player_count;		// 파일로 받은 플레이어의 수를 담는 변수
-int Player_num;			// 로그인한 플레이어의 구조체 배열 넘버를 저장함.  Player[Player_num] == 로그인한 회원의 정보
+int Player_num=-1;			// 로그인한 플레이어의 구조체 배열 넘버를 저장함.  Player[Player_num] == 로그인한 회원의 정보
 
-char Id_s[20], Ps_s[20], Name_s[20];	// 입력받은 아이디와 패스워드를 저장할 임시 공간 , 저장되어있는 플레이어의 데이터와 비교함.
+char Id_s[20], Ps_s[20];	// 입력받은 아이디와 패스워드를 저장할 임시 공간 , 저장되어있는 플레이어의 데이터와 비교함.
 
 void Login_main(int Count) {
 
@@ -18,7 +18,7 @@ void Login_main(int Count) {
 		{
 		case INFO:
 			system("cls");
-			list();
+			Draw_myinfo();
 			_getch();
 			break;
 		case LOGIN:
@@ -57,7 +57,7 @@ void Info_data_read() {
 
 	while(!feof(data)){  //데이터가 파일의 끝에 도달할떄 까지.  *feof 반환값 : 파일끝O [1~] 파일끝X [0]
 		
-		fscanf(data, "%s%s%s%s\n", Player[i].Name, Player[i].Id, Player[i].Password, Player[i].Score);
+		fscanf(data, "%s%s%s%d\n", Player[i].Name, Player[i].Id, Player[i].Password, &Player[i].Score);
 		i++;
 	}
 
@@ -69,7 +69,7 @@ void Info_data_save() {
 	FILE *data = fopen("Info_data.txt", "w+");
 
 	for (int j = 0; j < Player_count; j++) {
-		fprintf(data, "%s %s %s %s\n", Player[j].Name, Player[j].Id, Player[j].Password, Player[j].Score);
+		fprintf(data, "%s %s %s %d\n", Player[j].Name, Player[j].Id, Player[j].Password, Player[j].Score);
 	}
 
 	fclose(data);
@@ -95,23 +95,23 @@ void Login() {
 
 		if (Succes == True) {
 			system("cls");
-			printf("로그인 완료");
+			printf("\n\n\t로그인 완료");
 			while (_getch() != '\r') {}   // 바로 넘어가는 경우를 방지하기위함임
 		}
 		else {
 			system("cls");
-			printf("아이디와 패스워드가 맞지 않습니다!");
+			printf("\n\n\t아이디와 패스워드가 맞지 않습니다!");
 			while (_getch() != '\r') {}   // 바로 넘어가는 경우를 방지하기위함임
 		}
 	}
 	else if (T == False) {
 		system("cls");
-		printf("로그인 실패 !");
+		printf("\n\n\t로그인 실패 !");
 		while (_getch() != '\r') {  }   // 바로 넘어가는 경우를 방지하기위함임
 	}
 	else if (T == 3){
 		system("cls");
-		printf("아이디 패스워드는 15자 내외입니다.");
+		printf("\n\n\t아이디 패스워드는 15자 내외입니다.");
 		while (_getch() != '\r') {}   // 바로 넘어가는 경우를 방지하기위함임
 	}
 }
@@ -206,7 +206,7 @@ void input_signUp() {
 	scanf("%s", Player[i].Password);
 	printf("\n\n\t\t이름 입력 :");
 	scanf("%s", Player[i].Name);
-	strcpy(Player[i].Score, "0");
+	Player[i].Score = 0;
 	i++;
 
 	Player_count = i;
@@ -229,6 +229,6 @@ int check_Login() {
 // 회원 목록
 void list() {
 	for (int j = 0; j < Player_count; j++) {
-		printf("%s %s %s %s\n", Player[j].Name, Player[j].Id, Player[j].Password, Player[j].Score);
+		printf("%s %s %s %d\n", Player[j].Name, Player[j].Id, Player[j].Password, Player[j].Score);
 	}
 }

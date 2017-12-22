@@ -3,7 +3,6 @@
 int main() 
 {
 	int Count;
-
 	Cursor(0);					// 커서 숨기기 : 0 숨기기 1 보이기
 
 	while (1) 

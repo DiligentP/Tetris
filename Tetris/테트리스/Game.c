@@ -35,8 +35,8 @@ int Speed = 100;	// 초당 5번의 입력을 받기때문에 100 이지만 실제로는 500임.(500 
 int Score = 0;		// 게임 점수
 
 
-extern info Player[10];	// 랭킹에 올릴 10명의 데이터 공간
-extern int Player_count;//랭킹에 올라간 플레이어의 카운터
+extern info Player[100];
+extern int Player_num;
 
 //게임 메인 함수
 void Game_main()
@@ -150,7 +150,7 @@ void Draw_Board() {
 
 	// 천장 만들기//
 	for (j = 1; j<BOARD_WIDTH - 1; j++) { //y값이 3인 위치에 천장을 만듦 
-		if (board[3][j] == EMPTY) board[3][j] = CEILLING;
+		if (board[3][j] == EMPTY) board[3][j] = CEILING;
 	}
 
 	// 블럭 그리기
@@ -162,7 +162,7 @@ void Draw_Board() {
 				case EMPTY: // 공기
 					printf("  ");
 					break;
-				case CEILLING: // 천장
+				case CEILING: // 천장
 					printf(". ");
 					break;
 				case WALL: // 벽
@@ -390,6 +390,7 @@ void Drop_block() {
 // 라인을 체크하는 함수
 int Check_line() {
 	int i, j, k, l;
+	
 
 	int block_amount; //한줄의 블록갯수를 저장하는 변수 
 	int combo = 0; //콤보갯수 저장하는 변수 지정및 초기화 
@@ -406,8 +407,8 @@ int Check_line() {
 
 			for (k = i; k>1; k--) { //윗줄을 한칸씩 모두 내림(윗줄이 천장이 아닌 경우에만) 
 				for (l = 1; l<BOARD_WIDTH - 1; l++) {
-					if (board[k - 1][l] != CEILLING) board[k][l] = board[k - 1][l];
-					if (board[k - 1][l] == CEILLING) board[k][l] = EMPTY;
+					if (board[k - 1][l] != CEILING) board[k][l] = board[k - 1][l];
+					if (board[k - 1][l] == CEILING) board[k][l] = EMPTY;
 					//윗줄이 천장인 경우에는 천장을 한칸 내리면 안되니까 빈칸을 넣음 
 				}
 			}
@@ -433,9 +434,16 @@ int Check_line() {
 	/////////////////////////// 게임 오버 체크 ///////////////////////////////////////
 	for (j = 1; j<BOARD_WIDTH - 1; j++) { //벽과 벽사이의 블록갯루를 셈 
 		if (board[3][j] > 0) {
-			Draw_Gameover();
 
+			if (Score > Player[Player_num].Score) {    // 만약 자신의 최고 스코어보다 높으면 높은스코어로 대체함
+				Player[Player_num].Score = Score;
+				Info_data_save();
+			}
+			
+			Draw_Gameover();
+			
 			gotoxy(25, 11); printf("   YOUR SCORE : %2d", Score);
+
 			getc(stdin);
 			PlaySound(NULL, NULL, 0); //음악 종료.
 

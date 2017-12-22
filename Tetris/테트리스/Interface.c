@@ -1,7 +1,9 @@
 #include "Header.h"
 
 extern int Score;
+extern info Player[100];
 extern int Player_num;
+extern info Player_Top[10];
 
 // 테트리스 맨 처음 시작 타이틀 화면 
 void START_Display() {
@@ -162,13 +164,14 @@ int Main_Menu() {
 // 스코어보드 화면
 void Draw_Score() {
 	int x = BOARD_WIDTH * 2 + 10, y = 3;
-	gotoxy(x, y); printf(" SCORE : %d", Score);
-	gotoxy(x, y + 2); printf("+- N E X T -+ ");
-	gotoxy(x, y + 3); printf("|           | ");
+	gotoxy(x, y); printf(" BEST SCORE : %d", Player[Player_num].Score);
+	gotoxy(x, y+1); printf(" SCORE : %d", Score);
+	gotoxy(x, y + 3); printf("+- N E X T -+ ");
 	gotoxy(x, y + 4); printf("|           | ");
 	gotoxy(x, y + 5); printf("|           | ");
 	gotoxy(x, y + 6); printf("|           | ");
-	gotoxy(x, y + 7); printf("+-- -   - --+ ");
+	gotoxy(x, y + 7); printf("|           | ");
+	gotoxy(x, y + 8); printf("+-- -   - --+ ");
 
 	gotoxy(x - 2, y + 14); printf("   △    : Change       | SPACE : Hard Drop");
 	gotoxy(x - 2, y + 16); printf("◁    ▷ : Left / Right | P   : Pause");
@@ -217,15 +220,24 @@ void Draw_Pause(int count) {
 // 랭킹 화면
 void Draw_Rank() {
 	system("cls");
-	gotoxy(5, 3);  printf("[ 1  st ]   ------	-----		----	0000-00-00");
-	gotoxy(5, 5);  printf("[ 2  st ]   ------	-----		----	0000-00-00");
-	gotoxy(5, 7);  printf("[ 3  st ]   ------	-----		----	0000-00-00");
-	gotoxy(5, 9);  printf("[ 4  st ]   ------	-----		----	0000-00-00");
-	gotoxy(5, 11); printf("[ 5  st ]   ------	-----		----	0000-00-00");
-	gotoxy(5, 13); printf("[ 6  st ]   ------	-----		----	0000-00-00");
-	gotoxy(5, 15); printf("[ 7  st ]   ------	-----		----	0000-00-00");
-	gotoxy(5, 17); printf("[ 8  st ]   ------	-----		----	0000-00-00");
-	gotoxy(5, 19); printf("[ 9  st ]   ------	-----		----	0000-00-00");
-	gotoxy(5, 21); printf("[ 10 st ]   ------	-----		----	0000-00-00");
+	
+	printf("\n");
+	for (int i = 0; i < 10; i++) {
+		printf("\n\n\t[ %d  st ]\t Name: %s      Score: %d",i+1, Player_Top[i].Name, Player_Top[i].Score);
+	}
 	_getch();
+}
+
+void Draw_myinfo() {
+	if (Player_num == -1) {
+		system("cls");
+		printf("\n\n\n\t 로그인을 해주세요.\n");
+		return;
+	}
+	system("cls");
+	printf("\n\n\n");
+	printf("\t\t이름 : %s\n\n", Player[Player_num].Name);
+	printf("\t\t아이디 : %s\n\n", Player[Player_num].Id);
+	printf("\t\t비밀번호 : %s\n\n",Player[Player_num].Password);
+	printf("\t\t베스트 스코어 : %d\n\n",Player[Player_num].Score);
 }
