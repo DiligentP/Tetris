@@ -4,7 +4,9 @@
 This is Tetris developed in C language.
 
 ## 사용자 입력키 처리
-
+<img 
+___
 ## 블록 드롭 및 한줄 삭제
-
+___
 ## 다음 블록의 출력기능
+___
