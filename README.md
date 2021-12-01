@@ -2,9 +2,9 @@
 ![image](https://user-images.githubusercontent.com/31683152/144196079-32e48720-25f3-4d80-9409-d9c1579add25.png)    <br /><br />
 
 ## Description / 설명
-2017년 12월 22일.  
-C언어로 개발된 테트리스입니다.  
-언어 표준 : C++14  
+2017년 12월 22일.  <br />
+C언어로 개발된 테트리스입니다.  <br />
+언어 표준 : C++14  <br />
 IDE : Visual Studio 2015    <br /><br />
 
 ## Game
