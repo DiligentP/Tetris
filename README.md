@@ -3,7 +3,7 @@ https://user-images.githubusercontent.com/31683152/144226954-9ad489ee-bfda-4f43-
 
 ## Description / 설명
 2017년 12월 22일.<br /><br />
-C언어로 개발된 테트리스입니다.<br /><br />
+C언어로 개발한 테트리스입니다.<br /><br />
 언어 표준 : C++14<br /><br />
 IDE : Visual Studio 2015<br /><br /><br />
 
