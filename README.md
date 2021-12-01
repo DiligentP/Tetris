@@ -1,6 +1,9 @@
 # TETRIS 
 
-![image](https://user-images.githubusercontent.com/31683152/144195618-b9ded0c8-1ea0-44bb-8f76-a0752766d417.png)
+![image](https://user-images.githubusercontent.com/31683152/144196079-32e48720-25f3-4d80-9409-d9c1579add25.png)
+
+![image](https://user-images.githubusercontent.com/31683152/144196140-bb1723b8-58a0-4de1-a641-ae8445955fbf.png)
+
 
 This is Tetris developed in C language.
 
