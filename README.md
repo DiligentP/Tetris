@@ -4,7 +4,7 @@
 
 ![image](https://user-images.githubusercontent.com/31683152/144196140-bb1723b8-58a0-4de1-a641-ae8445955fbf.png)
 
-## 설명
+## Description / 설명
 2017년 12월 22일.
 
 C언어로 개발된 테트리스입니다.
