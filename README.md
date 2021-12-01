@@ -6,7 +6,6 @@
 
 2017 12 22.
 
-C언어로 개발한 테트리스입니다
 This is Tetris developed in C language.
 
 Language standard : c++17
