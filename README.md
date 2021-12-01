@@ -4,11 +4,12 @@
 
 ![image](https://user-images.githubusercontent.com/31683152/144196140-bb1723b8-58a0-4de1-a641-ae8445955fbf.png)
 
-2017 12 22.
 
-This is Tetris developed in C language.
+2017년 12월 22일.
 
-Language standard : c++14
+C언어로 개발된 테트리스입니다.
 
-IDE : visual studio 2015
+언어 표준 : C++14
+
+IDE : Visual Studio 2015
 
