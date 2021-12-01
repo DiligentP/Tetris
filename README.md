@@ -10,6 +10,8 @@ C언어로 개발된 테트리스입니다.
 
 IDE : Visual Studio 2015
 
+
+## 
 ![image](https://user-images.githubusercontent.com/31683152/144196140-bb1723b8-58a0-4de1-a641-ae8445955fbf.png)
 
 
