@@ -8,7 +8,7 @@
 
 This is Tetris developed in C language.
 
-Language standard : c++17
+Language standard : c++14
 
-IDE : visual studio 2017
+IDE : visual studio 2015
 
