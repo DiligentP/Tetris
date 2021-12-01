@@ -1,6 +1,7 @@
 # TETRIS 
 
 ![image](https://user-images.githubusercontent.com/31683152/144196079-32e48720-25f3-4d80-9409-d9c1579add25.png)
+
 ## Description / 설명
 2017년 12월 22일.
 
@@ -11,7 +12,8 @@ C언어로 개발된 테트리스입니다.
 IDE : Visual Studio 2015
 
 
-## 
+## Game
+
 ![image](https://user-images.githubusercontent.com/31683152/144196140-bb1723b8-58a0-4de1-a641-ae8445955fbf.png)
 
 
