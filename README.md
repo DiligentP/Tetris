@@ -1,4 +1,8 @@
 # TETRIS 
 
-#### C언어로 개발한 테트리스 입니다.
 This is Tetris developed in C language.
+
+Language standard : c++17
+
+dev : visual studio 2017
+
