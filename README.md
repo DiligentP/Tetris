@@ -4,8 +4,14 @@
 
 ## Description / 설명
 2017년 12월 22일.
+
+
 C언어로 개발된 테트리스입니다.
+
+
 언어 표준 : C++14
+
+
 IDE : Visual Studio 2015
 
 
