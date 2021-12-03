@@ -1,5 +1,5 @@
 # TETRIS 
-https://user-images.githubusercontent.com/31683152/144226954-9ad489ee-bfda-4f43-80c7-b543325c17d4.mp4
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/31683152/144604636-bbdc5d63-0e4c-43f9-a43e-46ee3e6c2bfd.gif)
 
 ## Description / 설명
 2017년 12월 22일.<br /><br />
