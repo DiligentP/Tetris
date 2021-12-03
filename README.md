@@ -6,7 +6,7 @@ C언어로 개발한 테트리스입니다.<br /><br />
 언어 표준 : C++14<br /><br />
 IDE : Visual Studio 2015<br /><br /><br />
 
-## 세부기능<br />
+## game detail / 세부기능<br />
 ### 게임시작
 ![Tetris - gamestart](https://user-images.githubusercontent.com/31683152/144607936-600bd819-e1d1-483a-ae84-da05e5722e27.gif)
 
