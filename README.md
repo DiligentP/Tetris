@@ -41,4 +41,3 @@ IDE : Visual Studio 2015\
 ## Releases / 깃허브 릴리즈로 다운로드하기
 
 [![Download](https://img.shields.io/github/v/release/DiligentP/Tetris?color=ffd700\&include\_prereleases\&label=DOWNLOAD%20RELEASE\&logo=github\&logoColor=green\&style=for-the-badge)](https://github.com/DiligentP/Tetris/releases)\
-\
