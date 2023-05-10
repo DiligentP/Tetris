@@ -4,15 +4,13 @@
 
 ## Description / 설명
 
-2017년 12월 22일.\
-\
-C언어로 개발한 테트리스입니다.\
-\
-언어 표준 : C++14\
-\
-IDE : Visual Studio 2015\
-\
-\
+2017년 12월 22일.
+
+C언어로 개발한 테트리스입니다.
+
+언어 표준 : C++14
+
+IDE : Visual Studio 2015
 
 
 ## Game detail / 세부기능
@@ -32,10 +30,6 @@ IDE : Visual Studio 2015\
 ### 게임종료
 
 ![Tetris - gameover](https://user-images.githubusercontent.com/31683152/144607971-40966439-4660-4f61-bf5c-8af6662659fb.gif)
-
-\
-\
-\
 
 
 ## Releases / 깃허브 릴리즈로 다운로드하기
