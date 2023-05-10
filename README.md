@@ -15,9 +15,7 @@ IDE : Visual Studio 2015\
 \
 
 
-Game detail / 세부기능\
-\---
-----
+## Game detail / 세부기능
 
 ## 게임시작
 
