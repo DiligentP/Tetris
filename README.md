@@ -17,7 +17,7 @@ IDE : Visual Studio 2015\
 
 ## Game detail / 세부기능
 
-## 게임시작
+### 게임시작
 
 ![Tetris - gamestart](https://user-images.githubusercontent.com/31683152/144607936-600bd819-e1d1-483a-ae84-da05e5722e27.gif)
 
